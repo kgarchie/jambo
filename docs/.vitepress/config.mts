@@ -25,5 +25,9 @@ export default defineConfig({
             {icon: 'github', link: 'https://github.com/kgarchie'},
             {icon: 'linkedin', link: 'https://www.linkedin.com/in/allan-bosire/'}
         ]
-    }
+    },
+    lang: 'en-US',
+    head: [
+        ['link', {rel: 'icon', href: '/jambo/favicon.ico'}]
+    ]
 })

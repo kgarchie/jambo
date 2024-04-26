@@ -20,6 +20,7 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,14 +36,14 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install
-        working-directory: jambo/docs
+        working-directory: docs
       - name: Build with VitePress
         run: pnpm run docs:build
-        working-directory: jambo/docs
+        working-directory: docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: jambo/docs/.vitepress/dist
+          path: docs/.vitepress/dist
 
   # Deployment job
   deploy:
@@ -56,3 +57,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+

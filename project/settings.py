@@ -14,7 +14,9 @@ from pathlib import Path
 import environ
 from os.path import join
 
-env = environ.Env(DEBUG=(bool, False))
+from utils.env import get_redis_url, get_redis_password, get_env
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +26,10 @@ environ.Env.read_env(join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+# This will be set automagically
+SECRET_KEY = get_env(env, "SECRET_KEY", None, True)
 
-DEBUG = env('DEBUG')
+DEBUG = get_env(env.bool, "DEBUG", False)
 
 # Application definition
 
@@ -58,8 +60,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,10 +79,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': get_env(env.db_url, "DATABASE_URI", required=True)
 }
 
 # Password validation
@@ -131,8 +129,27 @@ REST_FRAMEWORK = {
     ]
 }
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = get_env(env.list, "ALLOWED_HOSTS", "*")
 
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+CSRF_TRUSTED_ORIGINS = get_env(env.list, "CSRF_TRUSTED_ORIGINS", [])
 
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST')
+CORS_ORIGIN_WHITELIST = get_env(env.list, "CORS_ORIGIN_WHITELIST", [])
+
+REDIS_URL = get_redis_url(env)
+
+REDIS_PASSWORD = get_redis_password(env)
+
+if REDIS_URL:
+    CACHES = {
+        'default': {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "PASSWORD": REDIS_PASSWORD
+            }
+        }
+    }
+
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True

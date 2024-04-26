@@ -10,18 +10,11 @@ from django_countries.fields import CountryField
 class Customer(AbstractUser):
     dob = models.DateField(_("Date of Birth"), null=True)
     nationality = CountryField(_("Nationality"), null=True)
-
-    def __str__(self):
-        return self.username
-
-
-class Contact(models.Model):
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
     phone_number = models.CharField(_("Phone Number"), max_length=15, unique=True)
     email = models.EmailField(_("Email"), unique=True)
 
     def __str__(self):
-        return self.customer.username
+        return self.username
 
 
 class BusinessCategory(models.Model):

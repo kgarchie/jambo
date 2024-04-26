@@ -6,4 +6,8 @@ from rest_framework.views import APIView
 
 class Status(APIView):
     def get(self, request):
-        return Response({"status": "OK"})
+        json = {
+            "statusCode": 200,
+            "body": "OK"
+        }
+        return Response(json)

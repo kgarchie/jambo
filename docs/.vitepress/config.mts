@@ -4,6 +4,7 @@ import {defineConfig} from 'vitepress'
 export default defineConfig({
     title: "Jambo Docs",
     description: "Documentation for Jambo Customer Management REST API",
+    base: "/jambo/",
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [

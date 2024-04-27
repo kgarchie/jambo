@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -147,7 +148,7 @@ REST_FRAMEWORK = {
 ALLOWED_HOSTS = get_env(env.list, "ALLOWED_HOSTS", "*")
 
 CSRF_TRUSTED_ORIGINS = get_env(env.list, "CSRF_TRUSTED_ORIGINS", [])
-
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = get_env(env.list, "CORS_ORIGIN_WHITELIST", [])
 
 REDIS_URL = get_redis_url(env)

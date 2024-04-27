@@ -61,7 +61,7 @@ This time however, you need to have the following installed:
 - [Postgres](https://www.postgresql.org/download/) - You need postgres installed. Make sure there exists a database
   named `jambo`.
 - [Redis](https://redis.io/download) - Optional, could be run as a container, wsl or vm
-- Nginx is not implemented for Windows due to known issues - Skip
+- Nginx is not implemented outside docker due to known issues - Skip
 
 Then run the following command in the root directory of the project.
 
@@ -83,6 +83,15 @@ in an admin window before retrying the step above in a fresh window again.
 ```shell
 Set-ExecutionPolicy RemoteSigned
 ```
+
+## Secrets
+
+Environment variables should be stored in a `.env` file in the root directory of the project. You can rename
+the `.env.example` file to `.env` and fill in the necessary details. It's rudimentary and self-documented with comments.
+
+You will notice that if the app will create a `SECRET_KEY` for you and store it in the `.env` file if you don't provide one. This is not recommended for
+production, so always define a `SECRET_KEY` in your `.env` file or environment. The `SECRET_KEY` is used for hashing and
+encryption. It's just a long random string, can be anything.
 
 ## Testing
 

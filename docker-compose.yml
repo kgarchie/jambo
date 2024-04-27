@@ -17,6 +17,8 @@ services:
       - "8000:8000"
     environment:
       DB_ENV: docker
+      CSRF_TRUSTED_ORIGINS:
+      CORS_ORIGIN_WHITELIST:
     env_file:
       - .env
     volumes:

@@ -26,7 +26,7 @@ class BusinessCategorySerializer(serializers.ModelSerializer):
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Location
+        model = models.Area
         fields = "__all__"
 
 

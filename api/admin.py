@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Business, BusinessCategory, Customer, County, Ward, SubCounty, Location
+from .models import Business, BusinessCategory, Customer, County, Ward, SubCounty, Area
 
 # Register your models here.
 
@@ -9,4 +9,4 @@ admin.site.register(BusinessCategory)
 admin.site.register(County)
 admin.site.register(SubCounty)
 admin.site.register(Ward)
-admin.site.register(Location)
+admin.site.register(Area)

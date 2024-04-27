@@ -99,7 +99,7 @@ class SubCounty(models.Model):
 
 
 class Ward(models.Model):
-    name = models.CharField(_("Name"), max_length=255)
+    name = models.CharField(_("Name"), max_length=255, unique=True)
     sub_county = models.ForeignKey(SubCounty, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -109,7 +109,7 @@ class Ward(models.Model):
         verbose_name_plural = _("Wards")
 
 
-class Location(models.Model):
+class Area(models.Model):
     name = models.CharField(_("Name"), max_length=255)
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
 

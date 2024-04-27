@@ -1,12 +1,14 @@
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Customer, Business, BusinessCategory, County, SubCounty, Location, Ward
+from .models import Customer, Business, BusinessCategory, County, SubCounty, Area, Ward
 from .serializers import CustomerSerializer, CountySerializer, SubCountySerializer, BusinessSerializer, \
     BusinessCategorySerializer, LocationSerializer, WardSerializer
-from utils.token import get_auth_token
+from utils.token import get_auth_token, get_user
 from rest_framework.authtoken.models import Token
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -27,17 +29,16 @@ class StatusView(APIView):
 
 
 class CustomerView(APIView):
-    def get(self, request, ulid=None):
-        token = get_auth_token(request)
+    def get(self, request, customer_ulid=None):
         data = {}
-        if not token:
-            data["statusCode"] = 401
-            data["body"] = "Unauthorized | User token not provided on header"
-            return Response(data, status=401)
+        user, err = get_user(request)
+        if err is not None:
+            data["statusCode"] = 400
+            data["body"] = str(err)
+            return Response(data, status=400)
 
-        user = Token.objects.get(key=token).user
-        if ulid is not None:
-            customer = Customer.objects.get(ulid=ulid)
+        if customer_ulid is not None:
+            customer = get_object_or_404(Customer, ulid=customer_ulid)
 
             if user.is_staff or user == customer:
                 serializer = CustomerSerializer(customer)
@@ -54,15 +55,14 @@ class CustomerView(APIView):
             return Response(data)
 
     def delete(self, request, ulid):
-        token = get_auth_token(request)
         data = {}
-        if not token:
-            data["statusCode"] = 401
-            data["body"] = "Unauthorized | User token not provided on header"
-            return Response(data, status=401)
+        user, err = get_user(request)
+        if err is not None:
+            data["statusCode"] = 400
+            data["body"] = str(err)
+            return Response(data, status=400)
 
-        user = Token.objects.get(key=token).user
-        customer = Customer.objects.get(ulid=ulid)
+        customer = get_object_or_404(Customer, ulid=ulid)
 
         if user.is_staff or user == customer:
             customer.delete()
@@ -89,10 +89,10 @@ class CustomerView(APIView):
 
 
 class BusinessView(APIView):
-    def get(self, request, ulid=None):
+    def get(self, request, business_ulid=None):
         data = {}
-        if ulid is not None:
-            business = Business.objects.get(customer__ulid=ulid)
+        if business_ulid is not None:
+            business = get_object_or_404(Business, ulid=business_ulid)
             serializer = BusinessSerializer(business)
             data["statusCode"] = 200
             data["body"] = serializer.data
@@ -118,17 +118,15 @@ class BusinessView(APIView):
             return Response(data, status=400)
 
     def delete(self, request, ulid):
-        token = get_auth_token(request)
         data = {}
-        if not token:
-            data["statusCode"] = 401
-            data["body"] = "Unauthorized | User token not provided on header"
-            return Response(data, status=401)
-
-        user = Token.objects.get(key=token).user
+        user, err = get_user(request)
+        if err is not None:
+            data["statusCode"] = 400
+            data["body"] = str(err)
+            return Response(data, status=400)
 
         if user.is_staff:
-            business = Business.objects.get(ulid=ulid)
+            business = get_object_or_404(Business, ulid=ulid)
             business.delete()
             data["statusCode"] = 200
             data["body"] = "Business deleted successfully"
@@ -164,14 +162,23 @@ class BusinessCategoryView(APIView):
 
 
 class CountyView(APIView):
-    def get(self):
-        counties = County.objects.all()
-        serializer = CountySerializer(counties, many=True)
-        data = {
-            "statusCode": 200,
-            "body": serializer.data
-        }
-        return Response(data)
+    def get(self, county_name=None):
+        if county_name is not None:
+            county = get_object_or_404(County, name=county_name)
+            serializer = CountySerializer(county)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
+        else:
+            counties = County.objects.all()
+            serializer = CountySerializer(counties, many=True)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
 
     def post(self, request):
         new_county = CountySerializer(data=request.data)
@@ -188,14 +195,23 @@ class CountyView(APIView):
 
 
 class SubCountyView(APIView):
-    def get(self):
-        sub_counties = SubCounty.objects.all()
-        serializer = SubCountySerializer(sub_counties, many=True)
-        data = {
-            "statusCode": 200,
-            "body": serializer.data
-        }
-        return Response(data)
+    def get(self, county_name, subcounty_name=None):
+        if subcounty_name is not None:
+            sub_county = get_object_or_404(SubCounty, name=subcounty_name, county__name=county_name)
+            serializer = SubCountySerializer(sub_county)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
+        else:
+            sub_counties = SubCounty.objects.filter(county__name=county_name)
+            serializer = SubCountySerializer(sub_counties, many=True)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
 
     def post(self, request):
         new_sub_county = SubCountySerializer(data=request.data)
@@ -212,14 +228,24 @@ class SubCountyView(APIView):
 
 
 class WardView(APIView):
-    def get(self):
-        wards = Ward.objects.all()
-        serializer = WardSerializer(wards, many=True)
-        data = {
-            "statusCode": 200,
-            "body": serializer.data
-        }
-        return Response(data)
+    def get(self, county_name, subcounty_name, ward_name=None):
+        if ward_name is not None:
+            ward = get_object_or_404(Ward, name=ward_name, sub_county__county__name=county_name,
+                                     sub_county__name=subcounty_name)
+            serializer = WardSerializer(ward)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
+        else:
+            wards = Ward.objects.filter(sub_county__county__name=county_name, sub_county__name=subcounty_name)
+            serializer = WardSerializer(wards, many=True)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
 
     def post(self, request):
         new_ward = WardSerializer(data=request.data)
@@ -235,15 +261,27 @@ class WardView(APIView):
             return Response(data, status=400)
 
 
-class LocationView(APIView):
-    def get(self):
-        locations = Location.objects.all()
-        serializer = LocationSerializer(locations, many=True)
-        data = {
-            "statusCode": 200,
-            "body": serializer.data
-        }
-        return Response(data)
+class AreaView(APIView):
+    def get(self, county_name, subcounty_name, ward_name, area_name=None):
+        if area_name is not None:
+            area = get_object_or_404(Area, name=area_name, ward__sub_county__county__name=county_name,
+                                     ward__sub_county__name=subcounty_name, ward__name=ward_name)
+            serializer = LocationSerializer(area)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
+        else:
+            areas = Area.objects.filter(ward__sub_county__county__name=county_name,
+                                        ward__sub_county__name=subcounty_name,
+                                        ward__name=ward_name)
+            serializer = LocationSerializer(areas, many=True)
+            data = {
+                "statusCode": 200,
+                "body": serializer.data
+            }
+            return Response(data)
 
     def post(self, request):
         new_location = LocationSerializer(data=request.data)
@@ -257,3 +295,31 @@ class LocationView(APIView):
             data["statusCode"] = 400
             data["body"] = new_location.errors
             return Response(data, status=400)
+
+
+@api_view(["GET"])
+def get_business_customers(request, business_ulid):
+    customers = Customer.objects.filter(business__ulid=business_ulid)
+    serializer = CustomerSerializer(customers, many=True)
+    data = {
+        "statusCode": 200,
+        "body": serializer.data
+    }
+
+    return Response(data)
+
+
+@api_view(["GET"])
+def get_customer_businesses(request):
+    data = {}
+    user, err = get_user(request)
+    if err is not None:
+        data["statusCode"] = 400
+        data["body"] = str(err)
+        return Response(data, status=400)
+
+    businesses = Business.objects.filter(customer=user)
+    serializer = BusinessSerializer(businesses, many=True)
+    data["statusCode"] = 200
+    data["body"] = serializer.data
+    return Response(data)

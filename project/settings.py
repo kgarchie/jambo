@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders'
 ]
 
@@ -78,8 +79,18 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DB_OBJECT = get_env(env.db_url, "DATABASE_URI", required=True)
+DB_ENV = get_env(env.str, "DB_ENV", None)
+
 DATABASES = {
-    'default': get_env(env.db_url, "DATABASE_URI", required=True)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_OBJECT['NAME'],
+        'USER': DB_OBJECT['USER'] or 'postgres',
+        'PASSWORD': DB_OBJECT['PASSWORD'] or '',
+        'HOST': "db" if DB_ENV == "docker" else DB_OBJECT['HOST'],
+        'PORT': DB_OBJECT['PORT']
+    }
 }
 
 # Password validation
@@ -124,11 +135,14 @@ STATIC_ROOT = join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_RENDERER_CLASSES": [
-#         "rest_framework.renderers.JSONRenderer",
-#     ]
-# }
+REST_FRAMEWORK = {
+    #     "DEFAULT_RENDERER_CLASSES": [
+    #         "rest_framework.renderers.JSONRenderer",
+    #     ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 ALLOWED_HOSTS = get_env(env.list, "ALLOWED_HOSTS", "*")
 

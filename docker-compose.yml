@@ -1,8 +1,22 @@
 services:
+  db:
+    image: postgres:12
+    environment:
+      PGDATA: /data/pgdata
+      POSTGRES_DB: jambo
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/data/pgdata
+
   backend:
     build: .
     ports:
       - "8000:8000"
+    environment:
+      DB_ENV: docker
     env_file:
       - .env
     volumes:
@@ -26,3 +40,4 @@ services:
 
 volumes:
   static:
+  db_data:

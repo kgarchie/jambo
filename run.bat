@@ -8,18 +8,18 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-if not exist venv\Scripts\activate.bat (
-    python3 -m venv venv
+if not exist .venv\Scripts\activate.bat (
+    python3 -m venv .venv
 )
 
-call venv\Scripts\activate.bat
+call .venv\Scripts\activate.bat
 
 python3 -m pip install -r requirements.txt
 
-python3 manage.py makemigrations
-python3 manage.py migrate
+python3 manage.py makemigrations --no-input
+python3 manage.py migrate --no-input
 
-start cmd /k python3 manage.py runserver
+start cmd /k python3 manage.py runserver --no-warn-script-location
 
 where pnpm > nul 2>&1
 if %errorlevel% neq 0 (
@@ -31,6 +31,6 @@ if not exist docs/node_modules (
     cd docs && pnpm install
 )
 
-cd docs && start cmd /k pnpm run dev
+cd docs && start cmd /k pnpm run docs:dev
 
 endlocal

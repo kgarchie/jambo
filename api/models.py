@@ -1,23 +1,27 @@
+import binascii
+import os
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from ulid import ULID
 
 
 # Create your models here.
-class Customer(AbstractUser):
-    ulid = models.CharField(_("ULID"), max_length=26, default=ULID(), unique=True)
+class Customer(models.Model):
+    ulid = models.CharField(_("ULID"), max_length=26, unique=True)
     first_name = models.CharField(_("First Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
     dob = models.DateField(_("Date of Birth"))
     nationality = CountryField(_("Nationality"))
-    phone_number = models.CharField(_("Phone Number"), max_length=15, unique=True, blank=True, null=True)
-    email = models.EmailField(_("Email"), unique=True, blank=True, null=True)
+    phone_number = models.CharField(_("Phone Number"), max_length=20, unique=True)
+    email = models.EmailField(_("Email"), unique=True)
+    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
 
     def save(self, *args, **kwargs):
         if len(self.phone_number) < 10:
@@ -26,10 +30,12 @@ class Customer(AbstractUser):
             self.phone_number = self.phone_number[1:]
         if len(self.phone_number) == 10:
             self.phone_number = f"254{self.phone_number[1:]}"
+        if not self.ulid or self.ulid.strip() == "":
+            self.ulid = str(ULID())
         super(Customer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.username
+        return f"{self.first_name} {self.last_name}"
 
 
 class BusinessCategory(models.Model):
@@ -43,7 +49,7 @@ class BusinessCategory(models.Model):
 
 
 class Business(models.Model):
-    ulid = models.CharField(_("ULID"), max_length=26, default=ULID(), unique=True)
+    ulid = models.CharField(_("ULID"), max_length=26, default=str(ULID()), unique=True)
     business_name = models.CharField(_("Business Name"), max_length=255)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
     category = models.ForeignKey(BusinessCategory, on_delete=models.CASCADE)
@@ -118,3 +124,31 @@ class Area(models.Model):
 
     class Meta:
         verbose_name_plural = _("Locations")
+
+
+class Token(models.Model):
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, unique=True, blank=True, null=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name=_("User"),
+        unique=True,
+        blank=True,
+        null=True
+    )
+    key = models.CharField(_("Key"), max_length=40, primary_key=True)
+    created = models.DateTimeField(_("Created"), auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.customer and not self.user:
+            raise ValueError("Either customer or user must be set")
+        if not self.key:
+            self.key = self.generate_key()
+        return super().save(*args, **kwargs)
+
+    @classmethod
+    def generate_key(cls):
+        return binascii.hexlify(os.urandom(20)).decode()
+
+    def __str__(self):
+        return self.key

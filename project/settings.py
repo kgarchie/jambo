@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -112,8 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'api.Customer'
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -140,9 +138,6 @@ REST_FRAMEWORK = {
     #     "DEFAULT_RENDERER_CLASSES": [
     #         "rest_framework.renderers.JSONRenderer",
     #     ]
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
 }
 
 ALLOWED_HOSTS = get_env(env.list, "ALLOWED_HOSTS", "*")
@@ -169,3 +164,11 @@ if REDIS_URL:
 
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
 DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
+
+EMAIL_USE_TLS = get_env(env.bool, "MAIL_USE_TLS", True)
+EMAIL_HOST = get_env(env.str, "MAIL_SERVER", "smtp.gmail.com")
+EMAIL_PORT = get_env(env, "MAIL_PORT", 587)
+EMAIL_HOST_USER = get_env(env.str, "MAIL_USER", None)
+EMAIL_HOST_PASSWORD = get_env(env.str, "MAIL_PASSWORD", None)
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

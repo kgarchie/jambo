@@ -59,7 +59,7 @@ This time however, you need to have the following installed:
 - [Python 3](https://www.python.org/downloads/) - You need at least python 3.10 installed. Due to the use of type hints
 - [Node](https://nodejs.org/en/download/) - You need node installed. This is for the documentation.
 - [Postgres](https://www.postgresql.org/download/) - You need postgres installed. Make sure there exists a database
-  named `jambo`.
+  whose URI string should be added to the `.env`.
 - [Redis](https://redis.io/download) - Optional, could be run as a container, wsl or vm
 - Nginx is not implemented outside docker due to known issues - Skip
 

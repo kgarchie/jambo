@@ -1,6 +1,8 @@
 from rest_framework import serializers
-import models
+from .models import Customer, Business, BusinessCategory, Area, County, SubCounty, Ward
 from django_countries.serializer_fields import CountryField
+
+
 # from django_countries.serializers import CountryFieldMixin
 
 
@@ -8,41 +10,41 @@ class CustomerSerializer(serializers.ModelSerializer):
     nationality = CountryField(name_only=True)
 
     class Meta:
-        model = models.Customer
+        model = Customer
         fields = ("ulid", "first_name", "last_name", "middle_name", "nationality", "dob", "email", "phone_number")
 
 
 class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Business
+        model = Business
         fields = ("business_name", "registration_date", "business_category", "business_age")
 
 
 class BusinessCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.BusinessCategory
+        model = BusinessCategory
         fields = "__all__"
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Area
+        model = Area
         fields = "__all__"
 
 
 class CountySerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.County
+        model = County
         fields = "__all__"
 
 
 class SubCountySerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.SubCounty
+        model = SubCounty
         fields = "__all__"
 
 
 class WardSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Ward
+        model = Ward
         fields = "__all__"

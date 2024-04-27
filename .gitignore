@@ -2,6 +2,9 @@
 .idea
 db.sqlite3
 .env
+venv
 docs/node_modules
 docs/.vitepress/cache
 docs/.vitepress/dist
+static/
+data/

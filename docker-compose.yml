@@ -53,6 +53,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4173:173"
+    volumes:
+      - /app/node_modules # to avoid re-installing all node_modules every time the container is started
 
   redis:
     # ✅

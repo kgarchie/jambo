@@ -12,7 +12,7 @@ pnpm run docs:dev
 ```
 
 This is done automagically when running the server and is accessible
-via http://localhost/docs or http://localhost:5173/jambo.
+via http://localhost/jambo for or http://localhost:5173/jambo.
 You may as well just skim the raw markdown files in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder should you wish to.
 
 Here's the PostMan collection:
@@ -37,7 +37,7 @@ docker-compose up
 ```
 
 This will spin up all the needed containers and the default django-rest-framework API is accessible
-via http://localhost:{port}/api/. The port is determined whether it's in docker or not.
+via http://localhost:{port}/api/. The port is determined by whether it's in docker or not. (Should be absent for docker)
 
 ### Shell Scripting
 
@@ -102,7 +102,7 @@ If this happens, just run the tests again.
 :::
 
 ::: warning
-You need Redis running for the tests to pass.
+I don't recomment running the tests while caching is enabled, it will taint some responses. You can disable it by deleting all occurrences of the cache method decorators. See [this](https://www.django-rest-framework.org/api-guide/caching/#:~:text=for%202%20hours-,%40method_decorator(cache_page(60%20*%2060%20*%202)),-%40method_decorator(vary_on_cookie)
 :::
 
 ::: danger

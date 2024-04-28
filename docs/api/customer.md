@@ -19,17 +19,16 @@ generator: "@tarslib/widdershins v4.0.23"
 
 ---
 
-# My Jambo
+# Project
 
 Base URLs:
 > http:localhost:8000
 
-# Authentication
+# Customers
+## Authentication
 
 - HTTP Authentication, scheme:
 > Authorization: "Bearer TOKEN"
-
-# Customers
 
 ## POST Add Customer
 

@@ -84,7 +84,7 @@ Get all counties
 
 # Location/Subcounty
 
-## POST Create Sub County For <CountyName>
+## POST Create Sub County For [CountyName]
 
 POST /api/county/county/subcounties
 
@@ -127,7 +127,7 @@ name: Nairobi
 
 ### Responses Data Schema
 
-## GET Get All Sub Counties For <CountyName>
+## GET Get All Sub Counties For [CountyName]
 
 GET /api/county/county/subcounties
 
@@ -151,7 +151,7 @@ Get's all cubcounties for a particular county
 
 # Location/Ward
 
-## POST Create Ward For <SubCounty><County>
+## POST Create Ward For [County]/county/[SubCounty]
 
 POST /api/county/county/subcounty/subcounty/wards
 
@@ -195,7 +195,7 @@ name: "{{ward}}"
 
 ### Responses Data Schema
 
-## GET Get All Wards For <SubCounty><County>
+## GET Get All Wards For [County]/subcounty/[SubCounty]
 
 GET /api/county/county/subcounty/subcounty/wards
 
@@ -227,7 +227,7 @@ You still need the county name
 
 # Location/Area (Locale)
 
-## POST Create Area For <Ward><SubCounty><County>
+## POST Create Area For [County]/subcounty/[SubCounty]/ward/[Ward]
 
 POST /api/county/county/subcounty/subcounty/ward/ward/areas
 
@@ -273,7 +273,7 @@ name: "{{area}}"
 
 ### Responses Data Schema
 
-## GET Get All Areas For <Ward><SubCounty><County>
+## GET Get All Areas For [County]/subcounty/[SubCounty]/ward/[Ward]
 
 GET /api/county/county/subcounty/subcounty/ward/ward/areas
 

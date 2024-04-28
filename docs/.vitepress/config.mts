@@ -15,9 +15,14 @@ export default defineConfig({
             {
                 text: 'Getting Started',
                 items: [
-                    {text: 'Installation', link: '/api/installation'},
-                    {text: 'API Examples', link: '/api/examples'}
-                ]
+                    {text: 'Installation', link: '/api/quickstart'},
+                    {text: 'REST API', items: [
+                        {text: 'Customers', link: '/api/customer'},
+                        {text: 'Businesses', link: '/api/business'},
+                        {text: 'Location', link: '/api/location'},
+                        {text: 'Status', link: '/api/status'}
+                    ]}
+                ],
             }
         ],
 

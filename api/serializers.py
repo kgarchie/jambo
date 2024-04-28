@@ -3,10 +3,13 @@ from .models import Customer, Business, BusinessCategory, Area, County, SubCount
 from django_countries.serializer_fields import CountryField
 
 
-# from django_countries.serializers import CountryFieldMixin
-
-
 class CustomerSerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the customer data.
+    The nationality field is a CountryField that is used to store and parse the country data
+    using the the django-countries package.
+    """
+
     nationality = CountryField(name_only=True)
 
     class Meta:
@@ -24,7 +27,11 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class BusinessSerializer(serializers.ModelSerializer):
-    business_category = serializers.CharField(source='category.name')
+    """
+    This serializer class is used to serialize the business data.
+    """
+
+    business_category = serializers.CharField(source="category.name")
 
     class Meta:
         model = Business
@@ -36,28 +43,42 @@ class BusinessSerializer(serializers.ModelSerializer):
             "business_email",
             "business_website",
             "business_address",
-            "business_phone"
+            "business_phone",
         )
 
     def create(self, validated_data):
-        category = BusinessCategory.objects.get(name__iexact=validated_data.pop('category')['name'])
+        category = BusinessCategory.objects.get(
+            name__iexact=validated_data.pop("category")["name"]
+        )
         business = Business.objects.create(category=category, **validated_data)
         return business
 
 
 class BusinessCategorySerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the business category data.
+    """
+
     class Meta:
         model = BusinessCategory
         fields = ("name",)
 
 
 class CountySerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the county data.
+    """
+
     class Meta:
         model = County
         fields = "__all__"
 
 
 class SubCountySerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the sub-county data.
+    """
+
     county_name = serializers.CharField(source="county.name")
 
     class Meta:
@@ -72,6 +93,10 @@ class SubCountySerializer(serializers.ModelSerializer):
 
 
 class WardSerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the ward data.
+    """
+
     sub_county_name = serializers.CharField(source="sub_county.name")
 
     class Meta:
@@ -86,6 +111,10 @@ class WardSerializer(serializers.ModelSerializer):
 
 
 class AreaSerializer(serializers.ModelSerializer):
+    """
+    This serializer class is used to serialize the area data.
+    """
+
     ward_name = serializers.CharField(source="ward.name")
 
     class Meta:

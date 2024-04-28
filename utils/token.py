@@ -16,7 +16,7 @@ def get_auth_token(request) -> str | None:
     return token[1]
 
 
-def get_user_from_request(request) -> (User | None, ValueError | Http404):
+def get_user_from_request(request) -> tuple[User | None, Exception | None]:
     token = get_auth_token(request)
     if not token:
         err = ValueError("Authorization Token Not Found Within HTTP Headers")
@@ -28,7 +28,7 @@ def get_user_from_request(request) -> (User | None, ValueError | Http404):
         return None, Http404("User Not Found or is Invalid")
 
 
-def get_customer_from_request(request) -> (Customer | None, None | ValueError | Http404):
+def get_customer_from_request(request) -> tuple[Customer | None, Exception | None]:
     token = get_auth_token(request)
     if not token:
         err = ValueError("Authorization Token Not Found Within HTTP Headers")

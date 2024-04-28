@@ -19,7 +19,10 @@ python3 -m pip install -r requirements.txt
 python3 manage.py makemigrations --no-input
 python3 manage.py migrate --no-input
 
-start cmd /k python3 manage.py runserver --no-warn-script-location
+python3 manage.py makemigrations api --no-input
+python3 manage.py migrate api --no-input
+
+start cmd /k python3 manage.py runserver
 
 where pnpm > nul 2>&1
 if %errorlevel% neq 0 (

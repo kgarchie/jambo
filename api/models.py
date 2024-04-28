@@ -9,6 +9,10 @@ from ulid import ULID
 
 
 class BusinessCategory(models.Model):
+    """
+    This model represents the categories of businesses that are available in the system.
+    """
+
     name = models.CharField(_("Name"), max_length=255, unique=True)
 
     def __str__(self):
@@ -19,6 +23,10 @@ class BusinessCategory(models.Model):
 
 
 class Business(models.Model):
+    """
+    This model represents the businesses that are registered in the system.
+    """
+
     ulid = models.CharField(_("ULID"), max_length=26, unique=True)
     business_name = models.CharField(_("Business Name"), max_length=255)
     category = models.ForeignKey(BusinessCategory, on_delete=models.CASCADE)
@@ -45,6 +53,9 @@ class Business(models.Model):
 
     @property
     def business_category(self):
+        """
+        This property returns the category of the business.
+        """
         return self.category.name
 
     def save(self, *args, **kwargs):
@@ -61,7 +72,11 @@ class Business(models.Model):
 
 # Create your models here.
 class Customer(models.Model):
-    ulid = models.CharField(_("ULID"), max_length=26, unique=True)
+    """
+    This model represents the customers that are registered in the system.
+    """
+
+    ulid = models.CharField(_("ULID"), max_length=26, unique=True, blank=True)
     first_name = models.CharField(_("First Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
@@ -92,10 +107,17 @@ class Customer(models.Model):
 
 
 class County(models.Model):
+    """
+    This model represents the counties that are available in the system.
+    """
+
     name = models.CharField(_("Name"), max_length=255, unique=True)
 
     @property
     def sub_counties(self):
+        """
+        This property returns the sub counties that are available in the county.
+        """
         return self.subcounty_set.all()
 
     def __str__(self):
@@ -106,6 +128,10 @@ class County(models.Model):
 
 
 class SubCounty(models.Model):
+    """
+    This model represents the sub counties that are available in the system.
+    """
+
     name = models.CharField(_("Name"), max_length=255, unique=True)
     county = models.ForeignKey(County, on_delete=models.CASCADE)
 
@@ -114,6 +140,9 @@ class SubCounty(models.Model):
 
     @property
     def wards(self):
+        """
+        This property returns the wards that are available in the sub county.
+        """
         return self.ward_set.all()
 
     class Meta:
@@ -121,6 +150,10 @@ class SubCounty(models.Model):
 
 
 class Ward(models.Model):
+    """
+    This model represents the wards that are available in the system.
+    """
+
     name = models.CharField(_("Name"), max_length=255, unique=True)
     sub_county = models.ForeignKey(SubCounty, on_delete=models.CASCADE)
 
@@ -129,6 +162,9 @@ class Ward(models.Model):
 
     @property
     def areas(self):
+        """
+        This property returns the areas that are available in the ward.
+        """
         return self.area_set.all()
 
     class Meta:
@@ -136,6 +172,10 @@ class Ward(models.Model):
 
 
 class Area(models.Model):
+    """
+    This model represents the areas that are available in the system.
+    """
+
     name = models.CharField(_("Name"), max_length=255)
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
 
@@ -147,6 +187,10 @@ class Area(models.Model):
 
 
 class Token(models.Model):
+    """
+    This model represents the tokens that are generated for the customers and users.
+    """
+
     customer = models.OneToOneField(
         Customer, on_delete=models.CASCADE, unique=True, blank=True, null=True
     )
@@ -170,6 +214,9 @@ class Token(models.Model):
 
     @classmethod
     def generate_key(cls):
+        """
+        This method generates a random key for the token.
+        """
         return binascii.hexlify(os.urandom(20)).decode()
 
     def __str__(self):

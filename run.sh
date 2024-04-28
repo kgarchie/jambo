@@ -20,8 +20,10 @@ sudo apt-get install libpq-dev python3-dev
 
 pip3 install -r requirements.txt
 
-python3 manage.py makemigrations
-python3 manage.py migrate
+python3 manage.py makemigrations --no-input
+python3 manage.py migrate --no-input
+python3 manage.py makemigrations api --no-input
+python3 manage.py migrate api --no-input
 python3 manage.py runserver &
 
 

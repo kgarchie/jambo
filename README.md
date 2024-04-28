@@ -89,7 +89,8 @@ Set-ExecutionPolicy RemoteSigned
 Environment variables should be stored in a `.env` file in the root directory of the project. You can rename
 the `.env.example` file to `.env` and fill in the necessary details. It's rudimentary and self-documented with comments.
 
-You will notice that if the app will create a `SECRET_KEY` for you and store it in the `.env` file if you don't provide one. This is not recommended for
+You will notice that if the app will create a `SECRET_KEY` for you and store it in the `.env` file if you don't provide
+one. This is not recommended for
 production, so always define a `SECRET_KEY` in your `.env` file or environment. The `SECRET_KEY` is used for hashing and
 encryption. It's just a long random string, can be anything.
 
@@ -101,3 +102,11 @@ Running tests can be done via the following command once the server is up
 ```shell
 python manage.py test
 ```
+
+**NB:** I used Faker for data generation, so there is a non-zero chance that some primary keys may clash.
+If this happens, just run the tests again.
+
+**PS:** You need Redis running for the tests to pass.
+
+A video of tests passing can be found in the docs [here](https://kgarchie.github.io/jambo/docs/tests.mp4).
+

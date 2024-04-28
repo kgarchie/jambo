@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from .models import Customer, Business, BusinessCategory, County, SubCounty, Area, Ward, Token
 from .paginators import UsersPagination
 from .serializers import CustomerSerializer, CountySerializer, SubCountySerializer, BusinessSerializer, \
-    BusinessCategorySerializer, LocationSerializer, WardSerializer
+    BusinessCategorySerializer, AreaSerializer, WardSerializer
 from utils.token import get_user_from_request, get_customer_from_request
 from utils.cache import time_in_hours
 from utils.mail import send_mail
@@ -77,14 +77,15 @@ class CustomerView(generics.GenericAPIView):
     def delete(self, request, customer_ulid):
         data = {}
         user, err = get_user_from_request(request)
+        if user is None:
+            user, err = get_customer_from_request(request)
         if err is not None:
             data["statusCode"] = status.HTTP_400_BAD_REQUEST
             data["body"] = str(err)
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
         customer = get_object_or_404(Customer, ulid=customer_ulid)
-
-        if (user is not None and user.is_staff) or user == customer:
+        if (isinstance(user, User) and user.is_staff) or user == customer:
             customer.delete()
             data["statusCode"] = status.HTTP_204_NO_CONTENT
             return Response(data, status.HTTP_204_NO_CONTENT)
@@ -167,7 +168,7 @@ class BusinessView(APIView):
         if user.is_staff:
             business = get_object_or_404(Business, ulid=business_ulid)
             business.delete()
-            data["statusCode"] = status.HTTP_200_OK
+            data["statusCode"] = status.HTTP_204_NO_CONTENT
             data["body"] = "Business deleted successfully"
             return Response(data)
         else:
@@ -177,8 +178,8 @@ class BusinessView(APIView):
 
 
 class BusinessCategoryView(APIView):
-    @method_decorator(cache_page(time_in_hours(1)))
-    def get(self):
+    @method_decorator(cache_page(time_in_hours(0.1)))
+    def get(self, request):
         categories = BusinessCategory.objects.all()
         serializer = BusinessCategorySerializer(categories, many=True)
         data = {
@@ -188,8 +189,8 @@ class BusinessCategoryView(APIView):
         return Response(data)
 
     def post(self, request):
-        new_category = BusinessCategorySerializer(data=request.data)
         data = {}
+        new_category = BusinessCategorySerializer(data=request.data)
         if new_category.is_valid():
             new_category.save()
             data["statusCode"] = status.HTTP_201_CREATED
@@ -202,8 +203,8 @@ class BusinessCategoryView(APIView):
 
 
 class CountyView(APIView):
-    @method_decorator(cache_page(time_in_hours(2)))
-    def get(self, county_name=None):
+    @method_decorator(cache_page(time_in_hours(0.1)))
+    def get(self, request, county_name=None):
         if county_name is not None:
             county = get_object_or_404(County, name=county_name)
             serializer = CountySerializer(county)
@@ -236,8 +237,8 @@ class CountyView(APIView):
 
 
 class SubCountyView(APIView):
-    @method_decorator(cache_page(time_in_hours(2)))
-    def get(self, county_name, subcounty_name=None):
+    @method_decorator(cache_page(time_in_hours(0.1)))
+    def get(self, request, county_name, subcounty_name=None):
         if subcounty_name is not None:
             sub_county = get_object_or_404(SubCounty, name=subcounty_name, county__name=county_name)
             serializer = SubCountySerializer(sub_county)
@@ -255,8 +256,9 @@ class SubCountyView(APIView):
             }
             return Response(data)
 
-    def post(self, request):
+    def post(self, request, county_name):
         new_sub_county = SubCountySerializer(data=request.data)
+        new_sub_county.initial_data["county_name"] = county_name
         data = {}
         if new_sub_county.is_valid():
             new_sub_county.save()
@@ -270,8 +272,8 @@ class SubCountyView(APIView):
 
 
 class WardView(APIView):
-    @method_decorator(cache_page(time_in_hours(2)))
-    def get(self, county_name, subcounty_name, ward_name=None):
+    @method_decorator(cache_page(time_in_hours(0.1)))
+    def get(self, request, county_name, subcounty_name, ward_name=None):
         if ward_name is not None:
             ward = get_object_or_404(Ward, name=ward_name, sub_county__county__name=county_name,
                                      sub_county__name=subcounty_name)
@@ -290,9 +292,12 @@ class WardView(APIView):
             }
             return Response(data)
 
-    def post(self, request):
+    def post(self, request, county_name, subcounty_name):
         new_ward = WardSerializer(data=request.data)
+        new_ward.initial_data["sub_county_name"] = subcounty_name
+        new_ward.initial_data["county_name"] = county_name
         data = {}
+
         if new_ward.is_valid():
             new_ward.save()
             data["statusCode"] = status.HTTP_201_CREATED
@@ -305,12 +310,12 @@ class WardView(APIView):
 
 
 class AreaView(APIView):
-    @method_decorator(cache_page(time_in_hours(2)))
-    def get(self, county_name, subcounty_name, ward_name, area_name=None):
+    @method_decorator(cache_page(time_in_hours(0.1)))
+    def get(self, request, county_name, subcounty_name, ward_name, area_name=None):
         if area_name is not None:
             area = get_object_or_404(Area, name=area_name, ward__sub_county__county__name=county_name,
                                      ward__sub_county__name=subcounty_name, ward__name=ward_name)
-            serializer = LocationSerializer(area)
+            serializer = AreaSerializer(area)
             data = {
                 "statusCode": status.HTTP_200_OK,
                 "body": serializer.data
@@ -320,15 +325,18 @@ class AreaView(APIView):
             areas = Area.objects.filter(ward__sub_county__county__name=county_name,
                                         ward__sub_county__name=subcounty_name,
                                         ward__name=ward_name)
-            serializer = LocationSerializer(areas, many=True)
+            serializer = AreaSerializer(areas, many=True)
             data = {
                 "statusCode": status.HTTP_200_OK,
                 "body": serializer.data
             }
             return Response(data)
 
-    def post(self, request):
-        new_location = LocationSerializer(data=request.data)
+    def post(self, request, county_name, subcounty_name, ward_name):
+        new_location = AreaSerializer(data=request.data)
+        new_location.initial_data["ward_name"] = ward_name
+        new_location.initial_data["sub_county_name"] = subcounty_name
+        new_location.initial_data["county_name"] = county_name
         data = {}
         if new_location.is_valid():
             new_location.save()
@@ -343,7 +351,7 @@ class AreaView(APIView):
 
 @api_view(["GET"])
 def get_business_customers(request, business_ulid):
-    customers = Customer.objects.filter(business__ulid=business_ulid)
+    customers = get_object_or_404(Business, ulid=business_ulid).customers.all()
     serializer = CustomerSerializer(customers, many=True)
     data = {
         "statusCode": status.HTTP_200_OK,
@@ -362,7 +370,7 @@ def get_customer_businesses(request):
         data["body"] = str(err)
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
-    businesses = Business.objects.filter(customer=user)
+    businesses = Business.objects.filter(customers__in=[user])
     serializer = BusinessSerializer(businesses, many=True)
     data["statusCode"] = status.HTTP_200_OK
     data["body"] = serializer.data

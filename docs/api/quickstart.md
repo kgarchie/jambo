@@ -102,7 +102,7 @@ If this happens, just run the tests again.
 :::
 
 ::: warning
-I don't recomment running the tests while caching is enabled, it will taint some responses. You can disable it by deleting all occurrences of the cache method decorators. See [this](https://www.django-rest-framework.org/api-guide/caching/#:~:text=for%202%20hours-,%40method_decorator(cache_page(60%20*%2060%20*%202)),-%40method_decorator(vary_on_cookie)
+I don't recomment running the tests while caching is enabled, it will taint some responses. You can disable it by deleting all occurrences of the cache method decorators. See [this](https://www.django-rest-framework.org/api-guide/caching/#:~:text=Caching%20in%20REST%20Framework%20works%20well%20with%20the,cache%20decorators%20such%20as%20cache_page%2C%20vary_on_cookie%20and%20vary_on_headers.)
 :::
 
 ::: danger

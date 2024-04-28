@@ -9,9 +9,10 @@ RUN corepack enable
 COPY . /app/
 
 RUN pnpm install \
+    && pnpm docs:build \
     && pnpm prune
 
 
-EXPOSE 5173
+EXPOSE 4173
 
-CMD [ "pnpm", "run", "docs:dev" ]
+CMD [ "pnpm", "run", "docs:preview", "--host" ]

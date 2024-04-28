@@ -12,9 +12,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/data/pgdata
+      - ./data:/data/pgdata
 
   backend:
+    # ✅
     container_name: backend
     build: .
     ports:
@@ -24,17 +25,20 @@ services:
     env_file:
       - .env.docker
     volumes:
-      - static:/static
+      - ./static:/static
     depends_on:
       - database
+      - redis
 
   nginx:
+    # ✅
     container_name: nginx
     build:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - static:/static
+      - ./static:/static
+      - ./logs/master.log:/etc/nginx/logs/access.log
     ports:
       - "80:80"
     depends_on:
@@ -48,7 +52,7 @@ services:
       context: ./docs
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "4173:173"
 
   redis:
     # ✅
@@ -56,7 +60,3 @@ services:
     image: redis:7.2
     ports:
       - "6379:6379"
-
-volumes:
-  static:
-  db_data:

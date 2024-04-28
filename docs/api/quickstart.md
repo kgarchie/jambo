@@ -25,7 +25,6 @@ You can install this project in two ways, either via Docker or via Shell Scripti
 ### Docker (Recommended)
 
 I have provided a [Docker Compose](./docker-compose.yml) for the easiest deployment.
-This however is only suitable if your computer is powerful enough to run the containers.
 
 #### Prerequisites
 
@@ -38,7 +37,7 @@ docker-compose up
 ```
 
 This will spin up all the needed containers and the default django-rest-framework API is accessible
-via [http://localhost:{port}/api/](http://localhost:8000/api/). The port is determined whether it's in docker or not.
+via http://localhost:{port}/api/. The port is determined whether it's in docker or not.
 
 ### Shell Scripting
 

@@ -13,8 +13,12 @@ Chosen stack: <br>
 &nbsp; &nbsp; 6. GitHub - For Version Control <br>
 &nbsp; &nbsp; 7. GitHub Actions - For Deployment (Docs only) <br>
 &nbsp; &nbsp; 8. Nginx - For Reverse Proxy <br>
+&nbsp; &nbsp; 9. PostMan - Tool to help with API documentation
 
 A thorough documentation of the API is online [here](https://kgarchie.github.io/jambo/).
+
+Here's the PostMan collection:
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/15264165-ff91f75b-81bb-4bda-b45e-24002ddad076?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15264165-ff91f75b-81bb-4bda-b45e-24002ddad076%26entityType%3Dcollection%26workspaceId%3D91d100e3-340c-4dbd-b05b-e5eabbc100e7)
 
 Alternatively, the [docs/](./docs) folder is [vitepress](https://vitepress.dev/) powered and can be served locally
 by using the following command in that directory.
@@ -110,6 +114,3 @@ If this happens, just run the tests again.
 
 **Warning:** Do not use Pycharm's built in test runner or debugger as it won't initialise settings and environment
 variable therein properly
-
-A video of tests passing can be found in the docs [here](https://kgarchie.github.io/jambo/docs/tests.mp4).
-

@@ -4,9 +4,8 @@
 
 Howdy, how's the weather?
 
-These docs are also available in the [docs/](./docs) folder of the project, it's [vitepress](https://vitepress.dev/)
-powered and can be served locally
-by using the following command in that directory.
+These docs are also available in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder of the project, it's [vitepress](https://vitepress.dev/)
+powered and can be served locally by using the following command in that directory.
 
 ```bash
 pnpm run docs:dev
@@ -14,7 +13,10 @@ pnpm run docs:dev
 
 This is done automagically when running the server and is accessible
 via [http://localhost/docs](http://localhost/docs).
-You may as well just skim the raw markdown files in the [docs/](./docs) folder should you wish to.
+You may as well just skim the raw markdown files in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder should you wish to.
+
+Here's the PostMan collection:
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/15264165-ff91f75b-81bb-4bda-b45e-24002ddad076?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15264165-ff91f75b-81bb-4bda-b45e-24002ddad076%26entityType%3Dcollection%26workspaceId%3D91d100e3-340c-4dbd-b05b-e5eabbc100e7)
 
 ## Installation
 
@@ -36,11 +38,11 @@ docker-compose up
 ```
 
 This will spin up all the needed containers and the default django-rest-framework API is accessible
-via [http://localhost/api/](http://localhost/api/).
+via [http://localhost:{port}/api/](http://localhost:8000/api/). The port is determined whether it's in docker or not.
 
 ### Shell Scripting
 
-I have also provided a [shell script](./run.sh) for easy non-docker deployment.
+I have also provided a [shell script](https://github.com/kgarchie/jambo/tree/main/docs) for easy non-docker deployment.
 This time however, you need to have the following installed:
 
 ### Prerequisites

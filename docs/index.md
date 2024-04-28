@@ -7,17 +7,14 @@ hero:
   tagline: All codebases eventually become append only
   actions:
     - theme: brand
-      text: ⌚ Quickstart
-      link: ./api/quickstart.md
-    - theme: alt
-      text: 📄Docs
-      link: /api/installation      
+      text: ⌚ Get Started
+      link: ./api/quickstart.md    
   
 
 features:
   - title: PostMan 👩‍🚀
     details: Download the PostMan Collection here
-    link: 
+    link: https://god.gw.postman.com/run-collection/15264165-ff91f75b-81bb-4bda-b45e-24002ddad076?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15264165-ff91f75b-81bb-4bda-b45e-24002ddad076%26entityType%3Dcollection%26workspaceId%3D91d100e3-340c-4dbd-b05b-e5eabbc100e7
   - title: Redis 🫙
     details: This project leverages the power of Redis for caching. Used version 7.2, as it's the last open source one.
     link: https://pypi.org/project/django-redis/

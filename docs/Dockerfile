@@ -11,4 +11,7 @@ COPY . /app/
 RUN pnpm install \
     && pnpm prune
 
+
+EXPOSE 5173
+
 CMD [ "pnpm", "run", "docs:dev" ]

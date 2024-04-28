@@ -12,7 +12,7 @@ pnpm run docs:dev
 ```
 
 This is done automagically when running the server and is accessible
-via [http://localhost/docs](http://localhost/docs).
+via http://localhost/docs or http://localhost:5173/jambo.
 You may as well just skim the raw markdown files in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder should you wish to.
 
 Here's the PostMan collection:

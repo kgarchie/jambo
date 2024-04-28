@@ -9,4 +9,4 @@ python manage.py migrate api --no-input
 
 python manage.py migrate --noinput
 
-gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
+gunicorn project.wsgi:application --bind 0.0.0.0:8000

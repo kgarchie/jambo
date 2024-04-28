@@ -1,44 +1,61 @@
+version: '3'
+
 services:
-  db:
-    image: postgres:12
+  database:
+    # ✅
+    container_name: database
+    image: postgres:16
     environment:
       PGDATA: /data/pgdata
-      POSTGRES_DB: jambo
     env_file:
-      - .env
+      - .env.docker
     ports:
       - "5432:5432"
     volumes:
       - db_data:/data/pgdata
 
   backend:
+    container_name: backend
     build: .
     ports:
       - "8000:8000"
     environment:
-      DB_ENV: docker
-      CSRF_TRUSTED_ORIGINS:
-      CORS_ORIGIN_WHITELIST:
+      - DOCKER_ENV=True
     env_file:
-      - .env
+      - .env.docker
     volumes:
       - static:/static
+    depends_on:
+      - database
 
   nginx:
+    container_name: nginx
     build:
       context: ./nginx
+      dockerfile: Dockerfile
     volumes:
       - static:/static
     ports:
       - "80:80"
     depends_on:
       - backend
+      - docs
 
   docs:
+    # ✅
+    container_name: docs
     build:
       context: ./docs
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
+
+  redis:
+    # ✅
+    container_name: redis
+    image: redis:7.2
+    ports:
+      - "6379:6379"
 
 volumes:
   static:

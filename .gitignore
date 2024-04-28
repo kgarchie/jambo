@@ -2,6 +2,7 @@
 .idea
 db.sqlite3
 .env
+.env.docker
 venv
 docs/node_modules
 docs/.vitepress/cache

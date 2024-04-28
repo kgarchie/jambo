@@ -18,6 +18,7 @@ Chosen stack: <br>
 A thorough documentation of the API is online [here](https://kgarchie.github.io/jambo/).
 
 Here's the PostMan collection:
+
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/15264165-ff91f75b-81bb-4bda-b45e-24002ddad076?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15264165-ff91f75b-81bb-4bda-b45e-24002ddad076%26entityType%3Dcollection%26workspaceId%3D91d100e3-340c-4dbd-b05b-e5eabbc100e7)
 
 Alternatively, the [docs/](./docs) folder is [vitepress](https://vitepress.dev/) powered and can be served locally

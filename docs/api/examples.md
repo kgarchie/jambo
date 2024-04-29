@@ -1,6 +1,6 @@
 # Examples
 
-## URL: POST - /api/customers
+## POST - /api/customers
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -19,7 +19,7 @@
 }
 ```
 
-## URL: DELETE - /api/customer/01HWMHCAQJTT4KNRTPANS37TT7
+## DELETE - /api/customer/01HWMHCAQJTT4KNRTPANS37TT7
 >Status Code: 204
 >Content Type: application/json
 ```json
@@ -28,7 +28,7 @@
 }
 ```
 
-## URL: GET - /api/customer/98009c1b28410ef3311b76299f19c6f5cd7cb040/delete/confirm
+## GET - /api/customer/98009c1b28410ef3311b76299f19c6f5cd7cb040/delete/confirm
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -38,7 +38,7 @@
 }
 ```
 
-## URL: GET - /api/customer/17f49567a67ec439c625ca3479c10923130dc174invalid/delete/confirm
+## GET - /api/customer/17f49567a67ec439c625ca3479c10923130dc174invalid/delete/confirm
 >Status Code: 404
 >Content Type: application/json
 ```json
@@ -47,7 +47,7 @@
 }
 ```
 
-## URL: DELETE - /api/customer/01HWMHCARGSB3MMXBNF3BF460G
+## DELETE - /api/customer/01HWMHCARGSB3MMXBNF3BF460G
 >Status Code: 204
 >Content Type: application/json
 ```json
@@ -56,7 +56,7 @@
 }
 ```
 
-## URL: GET - /api/customer/01HWMHCARWBTABKQ7MZ8WAE0PT
+## GET - /api/customer/01HWMHCARWBTABKQ7MZ8WAE0PT
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -75,7 +75,7 @@
 }
 ```
 
-## URL: GET - /api/customers
+## GET - /api/customers
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -121,7 +121,7 @@
 }
 ```
 
-## URL: POST (PUT) - /api/customer/01HWMHCAV2F9WMTCA78YV2JJSV/delete/request
+## POST (PUT) - /api/customer/01HWMHCAV2F9WMTCA78YV2JJSV/delete/request
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -131,7 +131,7 @@
 }
 ```
 
-## URL: POST (PUT) - /api/customer/01HWMHCBP7YZWM9EJ5M9T9HVFM/delete/request
+## POST (PUT) - /api/customer/01HWMHCBP7YZWM9EJ5M9T9HVFM/delete/request
 >Status Code: 400
 >Content Type: application/json
 ```json
@@ -141,7 +141,7 @@
 }
 ```
 
-## URL: PUT - /api/customer/01HWMHCBPJGTGZBCPAXQ4GK0P6
+## PUT - /api/customer/01HWMHCBPJGTGZBCPAXQ4GK0P6
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -160,7 +160,7 @@
 }
 ```
 
-## URL: POST - /api/businesses
+## POST - /api/businesses
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -179,7 +179,7 @@
 }
 ```
 
-## URL: DELETE - /api/business/01HWMHCCTRJEB2GDA5H8ZX69VM
+## DELETE - /api/business/01HWMHCCTRJEB2GDA5H8ZX69VM
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -189,7 +189,7 @@
 }
 ```
 
-## URL: GET - /api/business/01HWMHCCV5S790A13076G4G1Z3/customers/
+## GET - /api/business/01HWMHCCV5S790A13076G4G1Z3/customers/
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -230,7 +230,7 @@
 }
 ```
 
-## URL: GET - /api/business/invalid/customers/
+## GET - /api/business/invalid/customers/
 >Status Code: 404
 >Content Type: application/json
 ```json
@@ -239,7 +239,7 @@
 }
 ```
 
-## URL: GET - /api/businesses
+## GET - /api/businesses
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -280,7 +280,7 @@
 }
 ```
 
-## URL: POST - /api/business_categories
+## POST - /api/business_categories
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -292,7 +292,7 @@
 }
 ```
 
-## URL: GET - /api/business_categories
+## GET - /api/business_categories
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -312,7 +312,7 @@
 }
 ```
 
-## URL: POST - /api/counties
+## POST - /api/counties
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -325,7 +325,7 @@
 }
 ```
 
-## URL: GET - /api/counties
+## GET - /api/counties
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -348,7 +348,7 @@
 }
 ```
 
-## URL: POST - /api/county/prevent/subcounties
+## POST - /api/county/prevent/subcounties
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -361,7 +361,7 @@
 }
 ```
 
-## URL: GET - /api/county/turn/subcounties
+## GET - /api/county/turn/subcounties
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -384,7 +384,7 @@
 }
 ```
 
-## URL: POST - /api/county/back/subcounty/whole/wards
+## POST - /api/county/back/subcounty/whole/wards
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -397,7 +397,7 @@
 }
 ```
 
-## URL: GET - /api/county/door/subcounty/leg/wards
+## GET - /api/county/door/subcounty/leg/wards
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -420,7 +420,7 @@
 }
 ```
 
-## URL: POST - /api/county/already/subcounty/painting/ward/across/areas
+## POST - /api/county/already/subcounty/painting/ward/across/areas
 >Status Code: 201
 >Content Type: application/json
 ```json
@@ -434,7 +434,7 @@
 ```
 political big federal
 
-## URL: GET - /api/county/political/subcounty/big/ward/federal/areas
+## GET - /api/county/political/subcounty/big/ward/federal/areas
 >Status Code: 200
 >Content Type: application/json
 ```json

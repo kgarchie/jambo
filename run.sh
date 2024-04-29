@@ -46,6 +46,6 @@ if [ ! -d "docs/node_modules" ]; then
     cd docs && pnpm install || echo "docs directory not found. Please run the script from the root directory of the project." && exit 1
 fi
 
-pnpm run docs:dev &
+pnpm run docs:dev
 
 deactivate

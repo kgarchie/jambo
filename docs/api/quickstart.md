@@ -4,7 +4,8 @@
 
 Howdy, how's the weather?
 
-These docs are also available in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder of the project, it's [vitepress](https://vitepress.dev/)
+These docs are also available in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder of the project,
+it's [vitepress](https://vitepress.dev/)
 powered and can be served locally by using the following command in that directory.
 
 ```bash
@@ -13,7 +14,8 @@ pnpm run docs:dev
 
 This is done automagically when running the server and is accessible
 via http://localhost/jambo for or http://localhost:5173/jambo.
-You may as well just skim the raw markdown files in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder should you wish to.
+You may as well just skim the raw markdown files in the [docs/](https://github.com/kgarchie/jambo/tree/main/docs) folder
+should you wish to.
 
 Here's the PostMan collection:
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/15264165-ff91f75b-81bb-4bda-b45e-24002ddad076?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15264165-ff91f75b-81bb-4bda-b45e-24002ddad076%26entityType%3Dcollection%26workspaceId%3D91d100e3-340c-4dbd-b05b-e5eabbc100e7)
@@ -79,8 +81,11 @@ Set-ExecutionPolicy RemoteSigned
 
 ## Secrets
 
-Environment variables should be stored in a `.env` file in the root directory of the project. You can rename
-the `.env.example` file to `.env` and fill in the necessary details. It's rudimentary and self-documented with comments.
+Environment variables should be stored in a `.env` and a `.env.docker.example` file in the root directory of the
+project. You can rename
+the `.env.example` file to `.env` and `.env.docker.example` to `.env` for containerized environments, then fill in the
+necessary details.
+It's rudimentary and self-documented with comments.
 
 You will notice that if the app will create a `SECRET_KEY` for you and store it in the `.env` file if you don't provide
 one. This is not recommended for
@@ -92,6 +97,10 @@ encryption. It's just a long random string, can be anything.
 I have included tests to ensure the API is working as expected.
 Running tests can be done via the following command once the server is up
 
+<video width="100%" controls>
+    <source src="../media/video/tests_passing.mp4" type="video/mp4">
+</video>
+
 ```shell
 python manage.py test
 ```
@@ -101,11 +110,7 @@ I used Faker for data generation, so there is a non-zero chance that some primar
 If this happens, just run the tests again.
 :::
 
-::: warning
-I don't recomment running the tests while caching is enabled, it will taint some responses. You can disable it by deleting all occurrences of the cache method decorators. See [this](https://www.django-rest-framework.org/api-guide/caching/#:~:text=Caching%20in%20REST%20Framework%20works%20well%20with%20the,cache%20decorators%20such%20as%20cache_page%2C%20vary_on_cookie%20and%20vary_on_headers.)
-:::
-
 ::: danger
-Do not use Pycharm's built in test runner or debugger as it won't initialise settings and environment
+Do not use PyCharm's built in test runner or debugger as it won't initialise settings and environment
 variable therein properly
 :::

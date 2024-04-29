@@ -138,9 +138,9 @@ STATIC_ROOT = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    #     "DEFAULT_RENDERER_CLASSES": [
-    #         "rest_framework.renderers.JSONRenderer",
-    #     ]
+        "DEFAULT_RENDERER_CLASSES": [
+            "rest_framework.renderers.JSONRenderer",
+        ]
 }
 
 ALLOWED_HOSTS = get_env(env.list, "ALLOWED_HOSTS", "*")

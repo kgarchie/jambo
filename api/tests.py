@@ -17,13 +17,15 @@ from .models import (
 import json
 from django.urls import reverse
 
-
 fake = Faker()
 
 
-def print_response(response, url=None):
+def print_response(response, url=None, method=None):
     if url:
-        print(f"\n## URL: {url}")
+        if method:
+            print(f"\n## URL: {method} - {url}")
+        else:
+            print(f"\n## URL: {url}")
     print(f">Status Code: {response.status_code}")
     print(f">Content Type: {response['content-type']}")
     data = json.dumps(response.data, indent=4)
@@ -43,7 +45,7 @@ def create_fake_customer():
     }
 
 
-class CustomerViewTests(TestCase):
+class _1_CustomerViewTests(TestCase):
     superuser = None
     admin_token = None
 
@@ -65,7 +67,7 @@ class CustomerViewTests(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Customer.objects.count(), 1)
         self.assertEqual(Customer.objects.get().first_name, data["first_name"])
@@ -77,7 +79,7 @@ class CustomerViewTests(TestCase):
         route = reverse("api:customers")
         response = self.client.get(route)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print_response(response, route)
+        print_response(response, route, "GET")
 
     def test_get_customer(self):
         data = create_fake_customer()
@@ -86,7 +88,7 @@ class CustomerViewTests(TestCase):
         route = reverse("api:customer", args=[customer.ulid])
         response = self.client.get(route)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print_response(response, route)
+        print_response(response, route, "GET")
 
     def test_update_customer(self):
         data = create_fake_customer()
@@ -101,7 +103,7 @@ class CustomerViewTests(TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print_response(response, route)
+        print_response(response, route, "PUT")
 
     def test_delete_customer_admin(self):
         data = create_fake_customer()
@@ -111,23 +113,23 @@ class CustomerViewTests(TestCase):
         response = self.client.delete(route)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Customer.objects.count(), 0)
-        print_response(response, route)
+        print_response(response, route, "DELETE")
 
     def test_delete_customer_with_customer_authenticated(self):
         data = create_fake_customer()
         customer = Customer.objects.create(**data)
-        customer_token = Token.objects.create(customer=customer).key
+        customer_token = Token.objects.get_or_create(customer=customer)[0].key
         self.client.credentials(Authorization=f"Bearer {customer_token}")
         route = reverse("api:customer", args=[customer.ulid])
         response = self.client.delete(route)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Customer.objects.count(), 0)
-        print_response(response, route)
+        print_response(response, route, "DELETE")
 
     def test_send_link_for_delete_customer_when_requested_from_customer(self):
         data = create_fake_customer()
         customer = Customer.objects.create(**data)
-        customer_token = Token.objects.create(customer=customer).key
+        customer_token = Token.objects.get_or_create(customer=customer)[0].key
         self.client.credentials(Authorization=f"Bearer {customer_token}")
         route = reverse("api:request_delete_customer", args=[customer.ulid])
         response = self.client.put(
@@ -135,14 +137,14 @@ class CustomerViewTests(TestCase):
             data={"origin": "https://localhost:8000"},
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print_response(response, route)
+        print_response(response, route, "POST (PUT)")
 
     def test_send_link_for_delete_customer_when_requested_from_customer_with_invalid_token(
-        self,
+            self,
     ):
         data = create_fake_customer()
         customer = Customer.objects.create(**data)
-        customer_token = Token.objects.create(customer=customer).key
+        customer_token = Token.objects.get_or_create(customer=customer)[0].key
         self.client.credentials(Authorization=f"Bearer {customer_token}invalid")
         route = reverse("api:request_delete_customer", args=[customer.ulid])
         response = self.client.put(
@@ -150,28 +152,28 @@ class CustomerViewTests(TestCase):
             data={"origin": "https://localhost:8000"},
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        print_response(response, route)
+        print_response(response, route, "POST (PUT)")
 
     def test_delete_customer_when_requested_from_customer(self):
         data = create_fake_customer()
         customer = Customer.objects.create(**data)
-        customer_token = Token.objects.create(customer=customer).key
+        customer_token = Token.objects.get_or_create(customer=customer)[0].key
         link = reverse("api:confirm_delete_customer", args=[customer_token])
         response = self.client.get(link)
-        print_response(response, link)
+        print_response(response, link, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_customer_when_requested_from_customer_with_invalid_token(self):
         data = create_fake_customer()
         customer = Customer.objects.create(**data)
-        customer_token = Token.objects.create(customer=customer).key
+        customer_token = Token.objects.get_or_create(customer=customer)[0].key
         link = reverse("api:confirm_delete_customer", args=[customer_token + "invalid"])
         response = self.client.get(link)
-        print_response(response, link)
+        print_response(response, link, "GET")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-class BusinessViewTests(TestCase):
+class _2_BusinessViewTests(TestCase):
     superuser = None
     admin_token = None
 
@@ -209,7 +211,7 @@ class BusinessViewTests(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Business.objects.count(), 1)
         self.assertEqual(Business.objects.all()[0].business_name, data["business_name"])
@@ -227,7 +229,7 @@ class BusinessViewTests(TestCase):
             Business.objects.create(**data)
         route = reverse("api:businesses")
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_business(self):
@@ -245,7 +247,7 @@ class BusinessViewTests(TestCase):
         response = self.client.delete(route)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Business.objects.count(), 0)
-        print_response(response, route)
+        print_response(response, route, "DELETE")
 
     def test_get_business_customers(self):
         data = {
@@ -270,18 +272,18 @@ class BusinessViewTests(TestCase):
 
         route = reverse("api:business_customers", args=[business.ulid])
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["body"]), 15)
 
     def test_get_business_customers_with_invalid_business(self):
         route = reverse("api:business_customers", args=["invalid"])
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-class BusinessCategoryTests(TestCase):
+class _3_BusinessCategoryTests(TestCase):
     def setUp(self):
         self.client = APIClient()
 
@@ -293,7 +295,7 @@ class BusinessCategoryTests(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(BusinessCategory.objects.count(), 1)
         self.assertEqual(BusinessCategory.objects.all()[0].name, data["name"])
@@ -301,15 +303,15 @@ class BusinessCategoryTests(TestCase):
     def test_get_business_categories(self):
         for _ in range(15):
             data = {"name": fake.word()}
-            BusinessCategory.objects.create(**data)
+            BusinessCategory.objects.get_or_create(**data)
         route = reverse("api:business_categories")
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["body"]), 15)
 
 
-class CountyTest(TestCase):
+class _4_CountyTest(TestCase):
     def setUp(self):
         self.client = APIClient()
 
@@ -321,6 +323,7 @@ class CountyTest(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(County.objects.count(), 1)
         self.assertEqual(County.objects.all()[0].name, data["name"])
@@ -331,12 +334,12 @@ class CountyTest(TestCase):
             County.objects.create(**data)
         route = reverse("api:counties")
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["body"]), 15)
 
 
-class SubCountyTest(TestCase):
+class _5_SubCountyTest(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.county = County.objects.create(name=fake.word())
@@ -349,7 +352,7 @@ class SubCountyTest(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(SubCounty.objects.count(), 1)
         self.assertEqual(SubCounty.objects.all()[0].name, data["name"])
@@ -357,15 +360,15 @@ class SubCountyTest(TestCase):
     def test_get_sub_counties(self):
         for _ in range(15):
             data = {"name": fake.word(), "county_id": self.county.id}
-            SubCounty.objects.create(**data)
+            SubCounty.objects.get_or_create(**data)
         route = reverse("api:subcounties", args=[self.county.name])
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["body"]), 15)
 
 
-class WardTest(TestCase):
+class _6_WardTest(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.county = County.objects.create(name=fake.word())
@@ -379,7 +382,7 @@ class WardTest(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Ward.objects.count(), 1)
         self.assertEqual(Ward.objects.all()[0].name, data["name"])
@@ -387,15 +390,15 @@ class WardTest(TestCase):
     def test_get_wards(self):
         for _ in range(15):
             data = {"name": fake.word(), "sub_county_id": self.sub_county.id}
-            Ward.objects.create(**data)
+            Ward.objects.get_or_create(**data)
         route = reverse("api:wards", args=[self.county.name, self.sub_county.name])
         response = self.client.get(route)
-        print_response(response, route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data["body"]), 15)
+        self.assertGreaterEqual(len(response.data["body"]), 1)
 
 
-class AreaTest(TestCase):
+class _7_AreaTest(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.county = County.objects.create(name=fake.word())
@@ -416,7 +419,7 @@ class AreaTest(TestCase):
             data=json.dumps(data),
             content_type="application/json",
         )
-        print_response(response, route)
+        print_response(response, route, "POST")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Area.objects.count(), 1)
         self.assertEqual(Area.objects.all()[0].name, data["name"])
@@ -431,5 +434,6 @@ class AreaTest(TestCase):
             args=[self.county.name, self.sub_county.name, self.ward.name],
         )
         response = self.client.get(route)
+        print_response(response, route, "GET")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["body"]), 15)

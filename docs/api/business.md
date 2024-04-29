@@ -149,7 +149,19 @@ business_website: " hello@eng.com"
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": {
+        "ulid": "01HWMHCBPMKDWD47WXFZRR6V5R",
+        "first_name": "Mark",
+        "last_name": "Lewis",
+        "middle_name": "Shelly",
+        "nationality": "Andorra",
+        "dob": "1920-06-11",
+        "email": "barberangela@example.com",
+        "phone_number": "254(763)238-"
+    }
+}
 ```
 
 ### Responses
@@ -265,27 +277,6 @@ Get all the business categories
         },
         {
             "name": "assume"
-        },
-        {
-            "name": "discussion"
-        },
-        {
-            "name": "expert"
-        },
-        {
-            "name": "this"
-        },
-        {
-            "name": "best"
-        },
-        {
-            "name": "wide"
-        },
-        {
-            "name": "administration"
-        },
-        {
-            "name": "north"
         }
     ]
 }

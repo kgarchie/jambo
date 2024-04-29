@@ -368,7 +368,18 @@ origin: http://localhost:8000
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": "Data deletion link sent successfully"
+}
+```
+
+> 400 Response
+```json
+{
+    "statusCode": 400,
+    "body": "Customer Not Found or is Invalid"
+}
 ```
 
 ### Responses
@@ -376,6 +387,7 @@ origin: http://localhost:8000
 | HTTP Status Code | Meaning                                                 | Description | Data schema |
 |------------------|---------------------------------------------------------|-------------|-------------|
 | 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
+| 400              | [Bad Request](https://tools.ietf.org/html/rfc7231)      | Bad Request |             |
 
 ### Responses Data Schema
 
@@ -390,13 +402,22 @@ Refer to the above, they work in conjunction to delete user data.
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": "Customer deleted successfully"
+}
 ```
-
+> 404 Response
+```json
+{
+  "detail": "No Token matches the given query."
+}
+```
 ### Responses
 
 | HTTP Status Code | Meaning                                                 | Description | Data schema |
 |------------------|---------------------------------------------------------|-------------|-------------|
 | 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
+| 404              | Not Found                                               | Not Found   |             |
 
 ### Responses Data Schema

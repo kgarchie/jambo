@@ -1,106 +1,185 @@
 # Examples
-## URL: /api/county/he/subcounty/create/ward/deal/areas
+
+## URL: POST - /api/customers
 >Status Code: 201
 >Content Type: application/json
 ```json
 {
     "statusCode": 201,
     "body": {
-        "name": "citizen",
-        "ward_name": "deal"
+        "ulid": "01HWMHCAP5M05KNF4TDMKK8VW0",
+        "first_name": "Alfred",
+        "last_name": "Haas",
+        "middle_name": "Paul",
+        "nationality": "Chad",
+        "dob": "1943-11-29",
+        "email": "hallcrystal@example.com",
+        "phone_number": "254+1-496-42"
     }
 }
 ```
 
-
-## URL: /api/business_categories
->Status Code: 201
+## URL: DELETE - /api/customer/01HWMHCAQJTT4KNRTPANS37TT7
+>Status Code: 204
 >Content Type: application/json
 ```json
 {
-    "statusCode": 201,
-    "body": {
-        "name": "heavy"
-    }
+    "statusCode": 204
 }
 ```
 
-## URL: /api/business_categories
+## URL: GET - /api/customer/98009c1b28410ef3311b76299f19c6f5cd7cb040/delete/confirm
 >Status Code: 200
 >Content Type: application/json
 ```json
 {
     "statusCode": 200,
-    "body": [
-        {
-            "name": "seat"
-        },
-        {
-            "name": "pretty"
-        },
-        {
-            "name": "ready"
-        },
-        {
-            "name": "west"
-        },
-        {
-            "name": "mouth"
-        },
-        {
-            "name": "suggest"
-        },
-        {
-            "name": "federal"
-        },
-        {
-            "name": "assume"
-        },
-        {
-            "name": "discussion"
-        },
-        {
-            "name": "expert"
-        },
-        {
-            "name": "this"
-        },
-        {
-            "name": "best"
-        },
-        {
-            "name": "wide"
-        },
-        {
-            "name": "administration"
-        },
-        {
-            "name": "north"
-        }
-    ]
+    "body": "Customer deleted successfully"
 }
 ```
 
-## URL: /api/businesses
+## URL: GET - /api/customer/17f49567a67ec439c625ca3479c10923130dc174invalid/delete/confirm
+>Status Code: 404
+>Content Type: application/json
+```json
+{
+    "detail": "No Token matches the given query."
+}
+```
+
+## URL: DELETE - /api/customer/01HWMHCARGSB3MMXBNF3BF460G
+>Status Code: 204
+>Content Type: application/json
+```json
+{
+    "statusCode": 204
+}
+```
+
+## URL: GET - /api/customer/01HWMHCARWBTABKQ7MZ8WAE0PT
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "statusCode": 200,
+    "body": {
+        "ulid": "01HWMHCARWBTABKQ7MZ8WAE0PT",
+        "first_name": "Amy",
+        "last_name": "Harding",
+        "middle_name": "Nicholas",
+        "nationality": "Holy See",
+        "dob": "1967-10-09",
+        "email": "gary38@example.com",
+        "phone_number": "254+1-820-97"
+    }
+}
+```
+
+## URL: GET - /api/customers
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "count": 15,
+    "next": null,
+    "previous": null,
+    "results": {
+        "statusCode": 200,
+        "body": [
+            {
+                "ulid": "01HWMHCASJSAB6S9910F16VMFD",
+                "first_name": "Jennifer",
+                "last_name": "Burns",
+                "middle_name": "John",
+                "nationality": "Taiwan",
+                "dob": "2020-01-26",
+                "email": "paul24@example.org",
+                "phone_number": "254943.724.5"
+            },
+            {
+                "ulid": "01HWMHCASM0Q1P341P04Q6M68Z",
+                "first_name": "Brett",
+                "last_name": "Smith",
+                "middle_name": "James",
+                "nationality": "Mauritania",
+                "dob": "1975-02-24",
+                "email": "schaefersteven@example.com",
+                "phone_number": "254412898975"
+            },
+            {
+                "ulid": "01HWMHCASPFE9MS8W2B1NJSDB6",
+                "first_name": "Leslie",
+                "last_name": "Kennedy",
+                "middle_name": "Frank",
+                "nationality": "Denmark",
+                "dob": "2006-10-20",
+                "email": "kyates@example.org",
+                "phone_number": "254733-569-4"
+            }
+        ]
+    }
+}
+```
+
+## URL: POST (PUT) - /api/customer/01HWMHCAV2F9WMTCA78YV2JJSV/delete/request
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "statusCode": 200,
+    "body": "Data deletion link sent successfully"
+}
+```
+
+## URL: POST (PUT) - /api/customer/01HWMHCBP7YZWM9EJ5M9T9HVFM/delete/request
+>Status Code: 400
+>Content Type: application/json
+```json
+{
+    "statusCode": 400,
+    "body": "Customer Not Found or is Invalid"
+}
+```
+
+## URL: PUT - /api/customer/01HWMHCBPJGTGZBCPAXQ4GK0P6
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "statusCode": 200,
+    "body": {
+        "ulid": "01HWMHCBPMKDWD47WXFZRR6V5R",
+        "first_name": "Mark",
+        "last_name": "Lewis",
+        "middle_name": "Shelly",
+        "nationality": "Andorra",
+        "dob": "1920-06-11",
+        "email": "barberangela@example.com",
+        "phone_number": "254(763)238-"
+    }
+}
+```
+
+## URL: POST - /api/businesses
 >Status Code: 201
 >Content Type: application/json
 ```json
 {
     "statusCode": 201,
     "body": {
-        "business_name": "Morris, Gonzalez and Patterson",
-        "created_at": "2024-04-28T11:54:13.592688Z",
+        "business_name": "Fowler Inc",
+        "created_at": "2024-04-29T09:01:11.876006Z",
         "business_category": "Test Category",
         "business_age": 0,
-        "business_email": "shermanmaria@example.org",
-        "business_website": "http://www.mejia.org/",
-        "business_address": "60031 White Dale\nSouth Lisaberg, OK 03668",
-        "business_phone": "+254803.952.4"
+        "business_email": "seancolon@example.org",
+        "business_website": "https://huffman.org/",
+        "business_address": "8313 Barbara Bypass\nEast Michaelburgh, MP 53306",
+        "business_phone": "+254552446065"
     }
 }
 ```
 
-## URL: /api/business/01HWJ8WG71S779RBWHCWM5NAMP
+## URL: DELETE - /api/business/01HWMHCCTRJEB2GDA5H8ZX69VM
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -110,7 +189,7 @@
 }
 ```
 
-## URL: /api/business/01HWJ8WG7E2Y4N0KHRTAVP78VF/customers/
+## URL: GET - /api/business/01HWMHCCV5S790A13076G4G1Z3/customers/
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -118,50 +197,40 @@
     "statusCode": 200,
     "body": [
         {
-            "ulid": "01HWJ8WG864GESR1XX7VNPCKQN",
-            "first_name": "David",
-            "last_name": "Burnett",
+            "ulid": "01HWMHCCV6F1NJPXYNA6KP57F0",
+            "first_name": "Beth",
+            "last_name": "Lloyd",
+            "middle_name": "Jenny",
+            "nationality": "",
+            "dob": "1960-01-04",
+            "email": "ibond@example.org",
+            "phone_number": "254+1-732-39"
+        },
+        {
+            "ulid": "01HWMHCCVAJ6ZZ2EQGA0KW2WQD",
+            "first_name": "Yvonne",
+            "last_name": "Obrien",
             "middle_name": "Stephanie",
             "nationality": "",
-            "dob": "1981-11-05",
-            "email": "jacobdavis@example.net",
-            "phone_number": "254788.880.3"
+            "dob": "1963-07-20",
+            "email": "coxbrenda@example.net",
+            "phone_number": "254(666)866-"
         },
         {
-            "ulid": "01HWJ8WG8BKW0DKZZ38ZA924C3",
-            "first_name": "Marvin",
-            "last_name": "Mclean",
-            "middle_name": "Rachel",
+            "ulid": "01HWMHCCVCMB5KE7KB50126J80",
+            "first_name": "Edwin",
+            "last_name": "Bennett",
+            "middle_name": "Travis",
             "nationality": "",
-            "dob": "2024-03-20",
-            "email": "rodriguezkathleen@example.net",
-            "phone_number": "254+1-288-62"
-        },
-        {
-            "ulid": "01HWJ8WG8FNBH5R27D77Q3SQEW",
-            "first_name": "Sheila",
-            "last_name": "Davis",
-            "middle_name": "Lauren",
-            "nationality": "",
-            "dob": "1922-11-18",
-            "email": "brad20@example.net",
-            "phone_number": "254+1-866-45"
-        },
-        {
-            "ulid": "01HWJ8WG8HPTHEXC3WJWKSGHWS",
-            "first_name": "Michael",
-            "last_name": "Blake",
-            "middle_name": "David",
-            "nationality": "",
-            "dob": "1925-07-01",
-            "email": "mercedes47@example.com",
-            "phone_number": "254001-586-3"
+            "dob": "2021-10-05",
+            "email": "robinfarrell@example.org",
+            "phone_number": "254001-299-6"
         }
     ]
 }
 ```
 
-## URL: /api/business/invalid/customers/
+## URL: GET - /api/business/invalid/customers/
 >Status Code: 404
 >Content Type: application/json
 ```json
@@ -170,7 +239,7 @@
 }
 ```
 
-## URL: /api/businesses
+## URL: GET - /api/businesses
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -178,187 +247,121 @@
     "statusCode": 200,
     "body": [
         {
-            "business_name": "Payne, Jimenez and Petty",
-            "created_at": "2024-04-28T11:54:13.693678Z",
+            "business_name": "Wilson-Collins",
+            "created_at": "2024-04-29T09:01:11.980471Z",
             "business_category": "Test Category",
             "business_age": 0,
-            "business_email": "kayleerodriguez@example.com",
-            "business_website": "http://www.taylor.org/",
-            "business_address": "970 Zachary Vista Suite 152\nCarolynside, MP 51943",
-            "business_phone": "+254(567)367-"
+            "business_email": "pollardleslie@example.org",
+            "business_website": "https://www.peterson.net/",
+            "business_address": "130 Brown Brook\nWilsonhaven, MI 52842",
+            "business_phone": "+254353.408.2"
         },
         {
-            "business_name": "Smith Ltd",
-            "created_at": "2024-04-28T11:54:13.695681Z",
+            "business_name": "Pruitt Inc",
+            "created_at": "2024-04-29T09:01:11.981996Z",
             "business_category": "Test Category",
             "business_age": 0,
-            "business_email": "megantaylor@example.org",
-            "business_website": "https://hernandez.org/",
-            "business_address": "826 Rivera Loop\nSouth Carol, MO 38889",
-            "business_phone": "+254887.763.5"
+            "business_email": "kimberlyblake@example.com",
+            "business_website": "http://www.ali.com/",
+            "business_address": "489 Valencia Road Apt. 941\nKellyshire, DC 92730",
+            "business_phone": "+254891795260"
         },
         {
-            "business_name": "Stein, Lopez and Neal",
-            "created_at": "2024-04-28T11:54:13.698683Z",
+            "business_name": "Forbes, Robbins and Moore",
+            "created_at": "2024-04-29T09:01:11.983187Z",
             "business_category": "Test Category",
             "business_age": 0,
-            "business_email": "william05@example.com",
-            "business_website": "https://www.ramirez.com/",
-            "business_address": "967 Campbell Crest\nMillerbury, NM 25900",
-            "business_phone": "+254+1-951-39"
-        },
+            "business_email": "rogersgerald@example.com",
+            "business_website": "http://sutton.com/",
+            "business_address": "301 Foster Brooks Suite 605\nNorth Susan, KY 04155",
+            "business_phone": "+254(561)670-"
+        }
     ]
 }
 ```
 
-## URL: /api/counties
+## URL: POST - /api/business_categories
+>Status Code: 201
+>Content Type: application/json
+```json
+{
+    "statusCode": 201,
+    "body": {
+        "name": "character"
+    }
+}
+```
+
+## URL: GET - /api/business_categories
 >Status Code: 200
 >Content Type: application/json
 ```json
 {
     "statusCode": 200,
     "body": [
+        {
+            "name": "various"
+        },
+        {
+            "name": "experience"
+        },
+        {
+            "name": "edge"
+        }
+    ]
+}
+```
+
+## URL: POST - /api/counties
+>Status Code: 201
+>Content Type: application/json
+```json
+{
+    "statusCode": 201,
+    "body": {
+        "id": 1,
+        "name": "future"
+    }
+}
+```
+
+## URL: GET - /api/counties
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "statusCode": 200,
+    "body": [
+        {
+            "id": 2,
+            "name": "partner"
+        },
+        {
+            "id": 3,
+            "name": "only"
+        },
         {
             "id": 4,
-            "name": "find"
-        },
-        {
-            "id": 5,
-            "name": "international"
-        },
-        {
-            "id": 6,
-            "name": "firm"
+            "name": "back"
         }
     ]
 }
 ```
 
-## URL: /api/customers
+## URL: POST - /api/county/prevent/subcounties
 >Status Code: 201
 >Content Type: application/json
 ```json
 {
     "statusCode": 201,
     "body": {
-        "ulid": "01HWJ8WH8998JFA9A7T1CFKQJN",
-        "first_name": "Christina",
-        "last_name": "Rodriguez",
-        "middle_name": "Andrew",
-        "nationality": "El Salvador",
-        "dob": "1977-07-06",
-        "email": "patrickrobertson@example.org",
-        "phone_number": "254260-960-9"
+        "name": "sing",
+        "county_name": "prevent"
     }
 }
 ```
 
-## URL: /api/customer/01HWJ8WH8ZT7ATH54B2FCYAJ5A
->Status Code: 204
->Content Type: application/json
-```json
-{
-    "statusCode": 204
-}
-```
-
-## URL: /api/customer/01HWJ8WH9X8WBK65EMGY9YKPBS
->Status Code: 200
->Content Type: application/json
-```json
-{
-    "statusCode": 200,
-    "body": {
-        "ulid": "01HWJ8WH9X8WBK65EMGY9YKPBS",
-        "first_name": "Cynthia",
-        "last_name": "Norris",
-        "middle_name": "Alexander",
-        "nationality": "Lesotho",
-        "dob": "1912-09-06",
-        "email": "aaron97@example.org",
-        "phone_number": "254246515866"
-    }
-}
-```
-
-## URL: /api/customers
->Status Code: 200
->Content Type: application/json
-```json
-{
-    "count": 15,
-    "next": null,
-    "previous": null,
-    "results": {
-        "statusCode": 200,[
-            {
-                "ulid": "01HWJ8WHBKAVVYTH97J7BMWK6Z",
-                "first_name": "Vanessa",
-                "last_name": "Jenkins",
-                "middle_name": "Karen",
-                "nationality": "Ireland",
-                "dob": "2014-08-19",
-                "email": "huntjohn@example.com",
-                "phone_number": "254374372730"
-            },
-            {
-                "ulid": "01HWJ8WHBN260KG7XHYC53Y9DN",
-                "first_name": "Andrea",
-                "last_name": "Anderson",
-                "middle_name": "Kenneth",
-                "nationality": "Bahrain",
-                "dob": "1971-08-07",
-                "email": "campbelltimothy@example.net",
-                "phone_number": "254001-875-6"
-            },
-            {
-                "ulid": "01HWJ8WHBPZQ1XG6HZ5K31M4S9",
-                "first_name": "Ryan",
-                "last_name": "Martin",
-                "middle_name": "James",
-                "nationality": "Nicaragua",
-                "dob": "1928-10-28",
-                "email": "mckeeandrea@example.org",
-                "phone_number": "254(640)335-"
-            },
-        ]
-    }
-}
-```
-
-## URL: /api/customer/01HWJ8WHCR763WXRX6G1YHBQ3T
->Status Code: 200
->Content Type: application/json
-```json
-{
-    "statusCode": 200,
-    "body": {
-        "ulid": "01HWJ8WHCTKBSTNM65KCVT0KGQ",
-        "first_name": "Joseph",
-        "last_name": "Bauer",
-        "middle_name": "Lori",
-        "nationality": "Montenegro",
-        "dob": "1989-05-10",
-        "email": "edixon@example.org",
-        "phone_number": "254(483)255-"
-    }
-}
-```
-
-## URL: /api/county/term/subcounties
->Status Code: 201
->Content Type: application/json
-```json
-{
-    "statusCode": 201,
-    "body": {
-        "name": "and",
-        "county_name": "term"
-    }
-}
-```
-
-## URL: /api/county/into/subcounties
+## URL: GET - /api/county/turn/subcounties
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -366,47 +369,35 @@
     "statusCode": 200,
     "body": [
         {
-            "name": "anyone",
-            "county_name": "into"
+            "name": "fall",
+            "county_name": "turn"
         },
         {
-            "name": "only",
-            "county_name": "into"
+            "name": "represent",
+            "county_name": "turn"
         },
         {
-            "name": "short",
-            "county_name": "into"
-        },
-        {
-            "name": "drug",
-            "county_name": "into"
-        },
-        {
-            "name": "industry",
-            "county_name": "into"
-        },
-        {
-            "name": "mean",
-            "county_name": "into"
+            "name": "throw",
+            "county_name": "turn"
         }
     ]
 }
 ```
 
-## URL: /api/county/measure/subcounty/building/wards
+## URL: POST - /api/county/back/subcounty/whole/wards
 >Status Code: 201
 >Content Type: application/json
 ```json
 {
     "statusCode": 201,
     "body": {
-        "name": "easy",
-        "sub_county_name": "building"
+        "name": "say",
+        "sub_county_name": "whole"
     }
 }
 ```
 
-## URL: /api/county/everything/subcounty/tend/wards
+## URL: GET - /api/county/door/subcounty/leg/wards
 >Status Code: 200
 >Content Type: application/json
 ```json
@@ -414,20 +405,53 @@
     "statusCode": 200,
     "body": [
         {
-            "name": "finally",
-            "sub_county_name": "tend"
+            "name": "sell",
+            "sub_county_name": "leg"
         },
         {
-            "name": "boy",
-            "sub_county_name": "tend"
+            "name": "what",
+            "sub_county_name": "leg"
         },
         {
-            "name": "light",
-            "sub_county_name": "tend"
+            "name": "member",
+            "sub_county_name": "leg"
+        }
+    ]
+}
+```
+
+## URL: POST - /api/county/already/subcounty/painting/ward/across/areas
+>Status Code: 201
+>Content Type: application/json
+```json
+{
+    "statusCode": 201,
+    "body": {
+        "name": "oil",
+        "ward_name": "across"
+    }
+}
+```
+political big federal
+
+## URL: GET - /api/county/political/subcounty/big/ward/federal/areas
+>Status Code: 200
+>Content Type: application/json
+```json
+{
+    "statusCode": 200,
+    "body": [
+        {
+            "name": "government",
+            "ward_name": "federal"
         },
         {
-            "name": "paper",
-            "sub_county_name": "tend"
+            "name": "sport",
+            "ward_name": "federal"
+        },
+        {
+            "name": "entire",
+            "ward_name": "federal"
         }
     ]
 }

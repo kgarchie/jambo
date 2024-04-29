@@ -107,11 +107,3 @@ Running tests can be done via the following command once the server is up
 ```shell
 python manage.py test
 ```
-
-**NB:** I used Faker for data generation, so there is a non-zero chance that some primary keys may clash.
-If this happens, just run the tests again.
-
-**PS:** You need to disable caching when running tests, there are get method decorators for counties, subcounties, etc because these are not expected to change rapidly. Cache invalidates in 6 minutes.
-
-**Warning:** Do not use Pycharm's built in test runner or debugger as it won't initialise settings and environment
-variable therein properly

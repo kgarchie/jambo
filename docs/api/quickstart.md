@@ -97,18 +97,13 @@ encryption. It's just a long random string, can be anything.
 I have included tests to ensure the API is working as expected.
 Running tests can be done via the following command once the server is up
 
-<video width="100%" controls>
+<video width="100%" controls muted>
     <source src="../media/video/tests_passing.mp4" type="video/mp4">
 </video>
 
 ```shell
 python manage.py test
 ```
-
-::: info
-I used Faker for data generation, so there is a non-zero chance that some primary keys may clash.
-If this happens, just run the tests again.
-:::
 
 ::: danger
 Do not use PyCharm's built in test runner or debugger as it won't initialise settings and environment

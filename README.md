@@ -91,8 +91,9 @@ Set-ExecutionPolicy RemoteSigned
 
 ## Secrets
 
-Environment variables should be stored in a `.env` file in the root directory of the project. You can rename
-the `.env.example` file to `.env` and fill in the necessary details. It's rudimentary and self-documented with comments.
+Environment variables should be stored in a `.env` and a `.env.docker`(used in docker) file in the root directory of the
+project. You can rename the `.env.example` file to `.env` and `.env.docker.example` to `.env.docker` for containerized environments, then fill in the
+necessary details. It's rudimentary and self-documented with comments.
 
 You will notice that if the app will create a `SECRET_KEY` for you and store it in the `.env` file if you don't provide
 one. This is not recommended for

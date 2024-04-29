@@ -9,8 +9,8 @@ language_tabs:
   - php: PHP
   - java: Java
   - go: Go
-toc_footers: []
-includes: []
+toc_footers: [ ]
+includes: [ ]
 search: true
 code_clipboard: true
 highlight_theme: darkula
@@ -25,9 +25,11 @@ Base URLs:
 > http:localhost:8000
 
 # Customers
+
 ## Authentication
 
 - HTTP Authentication, scheme:
+
 > Authorization: "Bearer TOKEN"
 
 ## POST Add Customer
@@ -50,29 +52,41 @@ phone_number: "{{customer_phone}}"
 
 ### Params
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» first_name|body|string| yes |none|
-|» last_name|body|string| yes |none|
-|» email|body|string| yes |none|
-|» nationality|body|string| yes |none|
-|» dob|body|string| yes |none|
-|» phone_number|body|string| yes |none|
+| Name           | Location | Type   | Required | Description |
+|----------------|----------|--------|----------|-------------|
+| body           | body     | object | no       | none        |
+| » first_name   | body     | string | yes      | none        |
+| » last_name    | body     | string | yes      | none        |
+| » email        | body     | string | yes      | none        |
+| » nationality  | body     | string | yes      | none        |
+| » dob          | body     | string | yes      | none        |
+| » phone_number | body     | string | yes      | none        |
 
 > Response Examples
 
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 201,
+  "body": {
+    "ulid": "01HWJ8WH9X8WBK65EMGY9YKPBS",
+    "first_name": "Cynthia",
+    "last_name": "Norris",
+    "middle_name": "Alexander",
+    "nationality": "Lesotho",
+    "dob": "1912-09-06",
+    "email": "aaron97@example.org",
+    "phone_number": "254246515866"
+  }
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                        | Description | Data schema |
+|------------------|------------------------------------------------|-------------|-------------|
+| 201              | [Created](https://tools.ietf.org/html/rfc7231) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -91,24 +105,53 @@ origin: postman
 
 ### Params
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» origin|body|string| no |none|
+| Name     | Location | Type   | Required | Description |
+|----------|----------|--------|----------|-------------|
+| body     | body     | object | no       | none        |
+| » origin | body     | string | no       | none        |
 
 > Response Examples
 
 > 200 Response
 
 ```json
-{}
+{
+  "count": 15,
+  "next": null,
+  "previous": null,
+  "results": {
+    "statusCode": 200,
+    "body": [
+      {
+        "ulid": "01HWJ8WHAN25NEA2SVCMRX6P6B",
+        "first_name": "Tricia",
+        "last_name": "Ryan",
+        "middle_name": "Karen",
+        "nationality": "Kyrgyzstan",
+        "dob": "1913-02-03",
+        "email": "emilygutierrez@example.net",
+        "phone_number": "254001-327-9"
+      },
+      {
+        "ulid": "01HWJ8WHAQZB914NFZ4JT7HFY0",
+        "first_name": "Danielle",
+        "last_name": "Compton",
+        "middle_name": "Bill",
+        "nationality": "Liberia",
+        "dob": "1999-08-26",
+        "email": "stewartmercedes@example.com",
+        "phone_number": "254+1-406-90"
+      }
+    ]
+  }
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                 | Description | Data schema |
+|------------------|---------------------------------------------------------|-------------|-------------|
+| 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -132,29 +175,41 @@ phone_number: "{{customer_phone}}"
 
 ### Params
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» first_name|body|string| yes |none|
-|» last_name|body|string| yes |none|
-|» email|body|string| yes |none|
-|» nationality|body|string| yes |none|
-|» dob|body|string| yes |none|
-|» phone_number|body|string| yes |none|
+| Name           | Location | Type   | Required | Description |
+|----------------|----------|--------|----------|-------------|
+| body           | body     | object | no       | none        |
+| » first_name   | body     | string | yes      | none        |
+| » last_name    | body     | string | yes      | none        |
+| » email        | body     | string | yes      | none        |
+| » nationality  | body     | string | yes      | none        |
+| » dob          | body     | string | yes      | none        |
+| » phone_number | body     | string | yes      | none        |
 
 > Response Examples
 
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 200,
+  "body": {
+    "ulid": "01HWJ8WHCTKBSTNM65KCVT0KGQ",
+    "first_name": "Joseph",
+    "last_name": "Bauer",
+    "middle_name": "Lori",
+    "nationality": "Montenegro",
+    "dob": "1989-05-10",
+    "email": "edixon@example.org",
+    "phone_number": "254(483)255-"
+  }
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                 | Description | Data schema |
+|------------------|---------------------------------------------------------|-------------|-------------|
+| 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -165,21 +220,34 @@ GET /api/customer/customer_ulid
 An endpoint to the customer details.
 
 **Note:**  
-An auth token is needed. The auth token will be used to retrieve the customer, thus, a customer can only retrieve their details.
+An auth token is needed. The auth token will be used to retrieve the customer, thus, a customer can only retrieve their
+details.
 
 > Response Examples
 
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 200,
+  "body": {
+    "ulid": "01HWJ8WH9X8WBK65EMGY9YKPBS",
+    "first_name": "Cynthia",
+    "last_name": "Norris",
+    "middle_name": "Alexander",
+    "nationality": "Lesotho",
+    "dob": "1912-09-06",
+    "email": "aaron97@example.org",
+    "phone_number": "254246515866"
+  }
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                      | Description | Data schema |
+|------------------|--------------------------------------------------------------|-------------|-------------|
+| 200              | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -187,7 +255,8 @@ An auth token is needed. The auth token will be used to retrieve the customer, t
 
 PUT /api/customer/customer_ulid
 
-An endpoint to edit the customer, this endpoint can only be used by Users with staff access. Auth bearer token is used to authenticate. The path includes the customer_ULID for who to edit.
+An endpoint to edit the customer, this endpoint can only be used by Users with staff access. Auth bearer token is used
+to authenticate. The path includes the customer_ULID for who to edit.
 
 > Body Parameters
 
@@ -203,29 +272,41 @@ phone_number: "{{customer_phone}}"
 
 ### Params
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» first_name|body|string| yes |none|
-|» last_name|body|string| yes |none|
-|» email|body|string| yes |none|
-|» nationality|body|string| yes |none|
-|» dob|body|string| yes |none|
-|» phone_number|body|string| yes |none|
+| Name           | Location | Type   | Required | Description |
+|----------------|----------|--------|----------|-------------|
+| body           | body     | object | no       | none        |
+| » first_name   | body     | string | yes      | none        |
+| » last_name    | body     | string | yes      | none        |
+| » email        | body     | string | yes      | none        |
+| » nationality  | body     | string | yes      | none        |
+| » dob          | body     | string | yes      | none        |
+| » phone_number | body     | string | yes      | none        |
 
 > Response Examples
 
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 200,
+  "body": {
+    "ulid": "01HWJ8WH9X8WBK65EMGY9YKPBS",
+    "first_name": "Cynthia",
+    "last_name": "Norris",
+    "middle_name": "Alexander",
+    "nationality": "Lesotho",
+    "dob": "1912-09-06",
+    "email": "aaron97@example.org",
+    "phone_number": "254246515866"
+  }
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                           | Description | Data schema |
+|------------------|---------------------------------------------------|-------------|-------------|
+| 204              | [No Content](https://tools.ietf.org/html/rfc7231) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -238,14 +319,16 @@ DELETE /api/customer/customer_ulid
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 204
+}
 ```
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                 | Description | Data schema |
+|------------------|---------------------------------------------------------|-------------|-------------|
+| 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -253,14 +336,18 @@ DELETE /api/customer/customer_ulid
 
 POST /api/customer/customer_ulid/delete/request
 
-In compiance to the data protection act 2019, users have to have a way of accessing and deleting their data. Thus I have provided the following two endpoints to facilitate that securely.
+In compiance to the data protection act 2019, users have to have a way of accessing and deleting their data. Thus, I have
+provided the following two endpoints to facilitate that securely.
 
-First a user will request for their data to be deleted, they will get a link to their email which will allow them to delete their account and data.
+First a user will request for their data to be deleted, they will get a link to their email which will allow them to
+delete their account and data.
 
 **Why the origin?**  
-I did it this way because the server may have dynamic ports behind a proxy or sth. In hindsight I should have used an environment variable.
+I did it this way because the server may have dynamic ports behind a proxy or sth. In hindsight, I should have used an
+environment variable.
 
-This origin is used to create the reset link, even if the frontend is running on a completely different server. There's more to be discussed and discovered here.
+This origin is used to create the reset link, even if the frontend is running on a completely different server. There's
+more to be discussed and discovered here.
 
 > Body Parameters
 
@@ -271,10 +358,10 @@ origin: http://localhost:8000
 
 ### Params
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» origin|body|string| yes |none|
+| Name     | Location | Type   | Required | Description |
+|----------|----------|--------|----------|-------------|
+| body     | body     | object | no       | none        |
+| » origin | body     | string | yes      | none        |
 
 > Response Examples
 
@@ -286,9 +373,9 @@ origin: http://localhost:8000
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                 | Description | Data schema |
+|------------------|---------------------------------------------------------|-------------|-------------|
+| 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema
 
@@ -308,8 +395,8 @@ Refer to the above, they work in conjunction to delete user data.
 
 ### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+| HTTP Status Code | Meaning                                                 | Description | Data schema |
+|------------------|---------------------------------------------------------|-------------|-------------|
+| 200              | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success     | Inline      |
 
 ### Responses Data Schema

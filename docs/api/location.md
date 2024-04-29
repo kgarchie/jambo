@@ -49,7 +49,13 @@ name: "{{county}}"
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 200,
+  "body": {
+    "id": 4,
+    "name": "find"
+  }
+}
 ```
 
 ### Responses
@@ -71,7 +77,19 @@ Get all counties
 > 200 Response
 
 ```json
-{}
+{
+  "statusCode": 200,
+  "body": [
+    {
+      "id": 4,
+      "name": "find"
+    },
+    {
+      "id": 5,
+      "name": "international"
+    }
+  ]
+}
 ```
 
 ### Responses
@@ -262,7 +280,13 @@ name: "{{area}}"
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 201,
+    "body": {
+        "name": "citizen",
+        "ward_name": "deal"
+    }
+}
 ```
 
 ### Responses
@@ -294,7 +318,15 @@ And of course the ward_name
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": [
+        {
+            "name": "citizen",
+            "ward_name": "deal"
+        }
+    ]
+}
 ```
 
 ### Responses

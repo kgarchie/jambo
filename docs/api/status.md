@@ -11,7 +11,10 @@ Get's the server status.
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 201,
+    "body": "OK"
+}
 ```
 
 ### Responses

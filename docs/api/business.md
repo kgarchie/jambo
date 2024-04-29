@@ -35,7 +35,19 @@ business_website: string
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 201,
+    "body": {
+        "business_name": "Morris, Gonzalez and Patterson",
+        "created_at": "2024-04-28T11:54:13.592688Z",
+        "business_category": "Test Category",
+        "business_age": 0,
+        "business_email": "shermanmaria@example.org",
+        "business_website": "http://www.mejia.org/",
+        "business_address": "60031 White Dale\nSouth Lisaberg, OK 03668",
+        "business_phone": "+254803.952.4"
+    }
+}
 ```
 
 ### Responses
@@ -57,7 +69,41 @@ Endpoint to get all businesses
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": [
+        {
+            "business_name": "Williams, Simmons and Lewis",
+            "created_at": "2024-04-28T11:54:13.678721Z",
+            "business_category": "Test Category",
+            "business_age": 0,
+            "business_email": "karenrivera@example.net",
+            "business_website": "https://hahn.com/",
+            "business_address": "977 Gregory Union\nNorth Ryanton, NM 87743",
+            "business_phone": "+254001-540-5"
+        },
+        {
+            "business_name": "Gordon, Friedman and King",
+            "created_at": "2024-04-28T11:54:13.680686Z",
+            "business_category": "Test Category",
+            "business_age": 0,
+            "business_email": "psimmons@example.org",
+            "business_website": "http://www.carter.com/",
+            "business_address": "19474 Briana Courts Suite 988\nPatriciafurt, MI 72587",
+            "business_phone": "+254+1-765-71"
+        },
+        {
+            "business_name": "Gordon Ltd",
+            "created_at": "2024-04-28T11:54:13.681680Z",
+            "business_category": "Test Category",
+            "business_age": 0,
+            "business_email": "joannestevens@example.com",
+            "business_website": "http://www.wolfe.com/",
+            "business_address": "740 Smith Viaduct Suite 222\nNorth Joshuaton, DE 57008",
+            "business_phone": "+254752.698.5"
+        }
+    ]
+}
 ```
 
 ### Responses
@@ -125,7 +171,10 @@ End point to delete a business, only staff users are able to
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 204,
+    "body": "Business deleted successfully"
+}
 ```
 
 ### Responses
@@ -163,7 +212,12 @@ name: Test
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 201,
+    "body": {
+        "name": "Test"
+    }
+}
 ```
 
 ### Responses
@@ -185,7 +239,56 @@ Get all the business categories
 > 200 Response
 
 ```json
-{}
+{
+    "statusCode": 200,
+    "body": [
+        {
+            "name": "seat"
+        },
+        {
+            "name": "pretty"
+        },
+        {
+            "name": "ready"
+        },
+        {
+            "name": "west"
+        },
+        {
+            "name": "mouth"
+        },
+        {
+            "name": "suggest"
+        },
+        {
+            "name": "federal"
+        },
+        {
+            "name": "assume"
+        },
+        {
+            "name": "discussion"
+        },
+        {
+            "name": "expert"
+        },
+        {
+            "name": "this"
+        },
+        {
+            "name": "best"
+        },
+        {
+            "name": "wide"
+        },
+        {
+            "name": "administration"
+        },
+        {
+            "name": "north"
+        }
+    ]
+}
 ```
 
 ### Responses

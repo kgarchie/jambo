@@ -35,7 +35,7 @@ export default defineConfig({
     },
     lang: 'en-US',
     head: [
-        ['link', { rel: 'icon', href: '/jambo/favicon.ico' }]
+        ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/kgarchie/jambo/main/docs/favicon.ico' }]
     ],
     ignoreDeadLinks: [
         // ignore exact url "/playground"

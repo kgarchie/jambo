@@ -107,3 +107,6 @@ Running tests can be done via the following command once the server is up
 ```shell
 python manage.py test
 ```
+
+**Note** Do not use PyCharm's built in test runner or debugger as it won't initialise settings and environment
+variable therein properly

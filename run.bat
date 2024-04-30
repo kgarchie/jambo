@@ -8,11 +8,11 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-if not exist .venv\Scripts\activate.bat (
+if not exist .\.venv\Scripts\activate.bat (
     python3 -m venv .venv
 )
 
-call .venv\Scripts\activate.bat
+call .\.venv\Scripts\activate.bat
 
 python3 -m pip install -r requirements.txt
 

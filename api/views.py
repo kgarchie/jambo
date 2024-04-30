@@ -346,7 +346,7 @@ class BusinessCategoryView(APIView):
     This class is used to handle the CRUD operations on the business category model.
     """
 
-    # @method_decorator(cache_page(time_in_hours(0.1)))
+    @method_decorator(cache_page(time_in_hours(0.1)))
     def get(self, request):
         """
         This method is used to get the business categories.
@@ -388,7 +388,7 @@ class CountyView(APIView):
     This class is used to handle the CRUD operations on the county model.
     """
 
-    # @method_decorator(cache_page(time_in_hours(0.1)))
+    @method_decorator(cache_page(time_in_hours(0.1)))
     def get(self, request, county_name=None):
         """
         This method is used to get the county details.
@@ -434,7 +434,7 @@ class SubCountyView(APIView):
     This class is used to handle the CRUD operations on the subcounty model.
     """
 
-    # @method_decorator(cache_page(time_in_hours(0.1)))
+    @method_decorator(cache_page(time_in_hours(0.1)))
     def get(self, request, county_name, subcounty_name=None):
         """
         This method is used to get the subcounty details.
@@ -488,7 +488,7 @@ class WardView(APIView):
     This class is used to handle the CRUD operations on the ward model.
     """
 
-    # @method_decorator(cache_page(time_in_hours(0.1)))
+    @method_decorator(cache_page(time_in_hours(0.1)))
     def get(self, request, county_name, subcounty_name, ward_name=None):
         if ward_name is not None:
             ward = get_object_or_404(
@@ -531,7 +531,7 @@ class AreaView(APIView):
     This class is used to handle the CRUD operations on the area model.
     """
 
-    # @method_decorator(cache_page(time_in_hours(0.1)))
+    @method_decorator(cache_page(time_in_hours(0.1)))
     def get(self, request, county_name, subcounty_name, ward_name, area_name=None):
         """
         This method is used to get the area details.

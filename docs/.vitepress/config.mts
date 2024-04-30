@@ -35,7 +35,15 @@ export default defineConfig({
     },
     lang: 'en-US',
     head: [
-        ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/kgarchie/jambo/main/docs/favicon.ico' }]
+        ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/kgarchie/jambo/main/docs/favicon.ico' }],
+        ['script', {src: 'https://www.googletagmanager.com/gtag/js?id=G-QWXHWYF3Z6', async: 'async'}],
+        ['script', {}, `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        
+            gtag('config', 'G-QWXHWYF3Z6');`
+        ]
     ],
     ignoreDeadLinks: [
         // ignore exact url "/playground"

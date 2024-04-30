@@ -37,6 +37,4 @@ features:
     link: https://www.django-rest-framework.org/api-guide/pagination/
     details: For long responses. This project uses DRF pagination to avoid too much data egress that can cause bottlenecks as not all said data may be neede at once.
 
-
 ---
-

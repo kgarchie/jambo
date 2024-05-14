@@ -51,7 +51,7 @@ services:
       context: ./docs
       dockerfile: Dockerfile
     ports:
-      - "4173:173"
+      - "4173:4173"
 
   redis:
     # ✅

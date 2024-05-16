@@ -82,6 +82,7 @@ class Customer(models.Model):
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
     dob = models.DateField(_("Date of Birth"))
     nationality = CountryField(_("Nationality"))
+    national_id = models.CharField(_("National ID"), max_length=20, unique=True)
     phone_number = models.CharField(_("Phone Number"), max_length=20, unique=True)
     email = models.EmailField(_("Email"), unique=True)
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
@@ -89,7 +90,7 @@ class Customer(models.Model):
     businesses = models.ManyToManyField(Business, related_name="customers")
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["first_name", "last_name", "dob", "national_id", "phone_number"]
 
     def save(self, *args, **kwargs):
         if len(self.phone_number) < 10:

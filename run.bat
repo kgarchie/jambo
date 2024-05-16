@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-where python3 > nul 2>&1
+where python > nul 2>&1
 if %errorlevel% neq 0 (
     echo Python 3 is not installed. Please download and install Python from:
     echo https://www.python.org/downloads/
@@ -9,20 +9,17 @@ if %errorlevel% neq 0 (
 )
 
 if not exist .\.venv\Scripts\activate.bat (
-    python3 -m venv .venv
+    python -m venv .venv
+    .\.venv\Scripts\python -m pip install -r requirements.txt
 )
 
-call .\.venv\Scripts\activate.bat
 
-python3 -m pip install -r requirements.txt
+.\.venv\Scripts\python manage.py makemigrations --no-input
+.\.venv\Scripts\python manage.py migrate --no-input
 
-python3 manage.py makemigrations --no-input
-python3 manage.py migrate --no-input
+.\.venv\Scripts\python manage.py makemigrations api --no-input
+.\.venv\Scripts\python manage.py migrate api --no-input
 
-python3 manage.py makemigrations api --no-input
-python3 manage.py migrate api --no-input
-
-start cmd /k python3 manage.py runserver
 
 where pnpm > nul 2>&1
 if %errorlevel% neq 0 (
@@ -34,6 +31,7 @@ if not exist docs/node_modules (
     cd docs && pnpm install
 )
 
+start cmd /k .\.venv\Scripts\python manage.py runserver
 cd docs && start cmd /k pnpm run docs:dev
 
 endlocal

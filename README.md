@@ -2,8 +2,6 @@
 
 ## Introduction
 
-This project was made for the sole purpose of submission and assessment to [JamboPay](https://jambopay.com/v2).
-
 Chosen stack: <br>
 &nbsp; &nbsp; 1. Django - Django Rest Framework <br>
 &nbsp; &nbsp; 2. Vitepress - For Documentation <br>
